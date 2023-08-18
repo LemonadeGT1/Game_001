@@ -1,8 +1,15 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img src="../assets/img/Shady Dell-logos.jpeg" alt="Shady Dell Logo" class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
+  <div class="container pt-3 bg-white elevation-3 rounded mt-3">
+    <div class="row p-2 align-items-center justify-content-center">
+      <div class="col-sm-3 col-12 text-center"><img src="../assets/img/Shady Dell-logos.jpeg" alt="Shady Dell Logo"
+          class="rounded-circle p-1 gameLogo"></div>
+      <div class="col-sm-3 col-12 text-center"><img src="../assets/img/Shady Dell-logos.jpeg" alt="Shady Dell Logo"
+          class="rounded-circle p-1 gameLogo"></div>
+      <div class="col-sm-3 col-12 text-center"><img src="../assets/img/Shady Dell-logos.jpeg" alt="Shady Dell Logo"
+          class="rounded-circle p-1 gameLogo"></div>
+    </div>
+    <div class="row p-2 px-3">
+      <h1 class="my-2 bg-dark text-white p-3 rounded text-center">
         Would you like to play a game?
       </h1>
     </div>
@@ -18,23 +25,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-
-  .home-card {
-    width: 50vw;
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+.gameLogo {
+  width: 200px;
 }
 </style>

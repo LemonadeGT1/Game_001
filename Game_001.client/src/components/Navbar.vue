@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg nav-bg px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/GameShellLogo_001.png" height="55" />
+        <img alt="logo" src="../assets/img/GameShellLogo_001.png" height="50" class="rounded" />
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 .nav-bg {
-  background-color: #f15067;
+  background-color: #574141;
 }
 
 a:hover {
