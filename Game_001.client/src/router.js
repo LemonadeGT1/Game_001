@@ -17,6 +17,16 @@ const routes = [
     component: loadPage('AboutPage')
   },
   {
+    path: '/suggest',
+    name: 'Suggest',
+    component: loadPage('SuggestPage')
+  },
+  {
+    path: '/moonminerII',
+    name: 'MoonMinerII',
+    component: loadPage('MoonMinerIIPage')
+  },
+  {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),

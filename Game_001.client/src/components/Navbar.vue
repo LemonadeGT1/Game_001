@@ -16,6 +16,11 @@
             About
           </router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'Suggest' }" class="btn text-light selectable text-uppercase">
+            Suggest
+          </router-link>
+        </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
