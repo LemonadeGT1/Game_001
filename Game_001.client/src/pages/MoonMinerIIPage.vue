@@ -6,13 +6,15 @@
     </div>
     <div class="row justify-content-around">
       <div class="col-3 text-center">
-        <button class="btn btn-dark" @click="startInterval(); moon.interval_started = true;">Start</button>
+        <button v-if="moon.interval_started != true" class="btn btn-dark"
+          @click="startInterval(); moon.interval_started = true;">Start</button>
+        <button v-else class="btn btn-dark" disabled>Start</button>
       </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-12 text-center p-3">
         <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()">
-        <img v-else src="../assets/img/moonSM_v2.png" class="disabled">
+        <img v-else src="../assets/img/moonSM_v2.png" onclick="window.alert('Click Start button to begin');">
       </div>
     </div>
   </div>
@@ -23,24 +25,37 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12" id="readOut">
-        <p>Interval Started: <input type="text" v-model="moon.interval_started"></p>
-        <p>Max Health: <input type="text" v-model="moon.max_health"></p>
-        <p>Current Health: <input type="text" v-model="moon.current_health"></p>
-        <p>Deterioration Amount: <input type="text" v-model="moon.deteriorationAmount"></p>
-        <p>Deterioration Rate: <input type="text" v-model="moon.deteriorationRate"> (1000 = every 1 second)</p>
+      <div class="col-12">
+        <h4 class="text-center">Moon</h4>
+        <p>Interval Started: <input type="text" v-model="moon.interval_started">
+          <br>Max Health: <input type="text" v-model="moon.max_health">
+          <br>Current Health: <input type="text" v-model="moon.current_health">
+          <br>Deterioration Amount: <input type="text" v-model="moon.deteriorationAmount">
+          <br>Deterioration Rate: <input type="text" v-model="moon.deteriorationRate"> (1000 = every 1 second)
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-center">Player</h4>
+        <p>Resources Available: <input type="text" v-model="player.resources_available">
+          <br>Resources Extracted: <input type="text" v-model="player.resources_extracted">
+          <br>Extraction Amount (per click): <input type="text" v-model="player.extraction_amount_click">
+          <br>Extraction Amount (passive): <input type="text" v-model="player.extraction_amount_passive">
+          <br>Total Clicks: <input type="text" v-model="player.totalClicks">
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, watchEffect, ref } from 'vue';
+import { computed, watchEffect } from 'vue';
+import { AppState } from '../AppState.js';
 
 export default {
   setup() {
-    let moon = ref({})
-    moon = {
+    AppState.moon = {
       interval_started: false,
       max_health: 5000,
       current_health: 5000,
@@ -48,7 +63,7 @@ export default {
       deteriorationRate: 1000
     }
 
-    let player = {
+    AppState.player = {
       resources_available: 0,
       resources_extracted: 0,
       extraction_amount_click: 1,
@@ -67,27 +82,28 @@ export default {
 
     function drawStats() {
       // FIXME Write player Statistics to page
-      // console.log("drawStats", moon, player)
-
-      watchEffect(() => {
-        console.log('watchEffect triggered!', moon)
-        moon.value = { ...moon }
-      })
-
+      // console.log("drawStats", AppState.moon, AppState.player)
     }
+
+    // watchEffect(() => {
+    //   console.log('watchEffect triggered!', moon)
+    //   moon.value = { ...moon }
+    // })
+
     return {
-      moon: computed(() => moon),
-      player: computed(() => player),
+      moon: computed(() => AppState.moon),
+
+      player: computed(() => AppState.player),
 
       startInterval() {
         console.log("startInterval")
-        moon.startInterval = true
+        AppState.moon.interval_started = true
         let moonInterval = setInterval(() => {
-          moon.current_health -= (moon.deteriorationAmount + player.extraction_amount_passive)
-          player.resources_available += player.extraction_amount_passive
-          player.resources_extracted += player.extraction_amount_passive
+          AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
+          AppState.player.resources_available += AppState.player.extraction_amount_passive
+          AppState.player.resources_extracted += AppState.player.extraction_amount_passive
           drawStats()
-        }, moon.deteriorationRate)
+        }, AppState.moon.deteriorationRate)
       },
 
 
@@ -98,14 +114,11 @@ export default {
       },
 
       mineMoon() {
-        if (moon.current_health > 0) {
-          moon.current_health -= player.extraction_amount_click
-          player.resources_available += player.extraction_amount_click
-          player.resources_extracted += player.extraction_amount_click
-          player.totalClicks++
-          // console.log('mineMoon: ', moon, player)
-          const readOutElem = document.getElementById('readOut')
-          readOutElem.innerHTML = "<p>Max Health: " + moon.max_health + "</p>" + "<p>Current Health: " + moon.current_health + "</p>" + "<p>Deterioration Amount: " + moon.deteriorationAmount + "</p>" + "</p>" + "<p>Deterioration Rate: " + moon.deteriorationRate + "</p>" + "</p>" + "<p>Interval Started: " + moon.interval_started + "</p>"
+        if (AppState.moon.current_health > 0) {
+          AppState.moon.current_health -= AppState.player.extraction_amount_click
+          AppState.player.resources_available += AppState.player.extraction_amount_click
+          AppState.player.resources_extracted += AppState.player.extraction_amount_click
+          AppState.player.totalClicks++
         } else {
           checkEndGame()
         }
@@ -121,7 +134,7 @@ input {
   background-color: var(--bs-body-bg);
   border-radius: 5px;
   color: var(--bs-dark);
-  width: 5vw;
+  width: 50px;
 }
 
 .mmBody {
