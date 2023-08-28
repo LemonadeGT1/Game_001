@@ -6,7 +6,7 @@
     </div>
     <div class="row justify-content-around">
       <div class="col-3 text-center">
-        <button class="btn btn-dark" @click="startInterval()">Start</button>
+        <button class="btn btn-dark" @click="startInterval(); moon.interval_started = true;">Start</button>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -24,22 +24,23 @@
     </div>
     <div class="row">
       <div class="col-12" id="readOut">
-        <p>Interval Started: {{ moon.interval_started }}</p>
-        <p>Max Health: {{ moon.max_health }}</p>
-        <p>Current Health: {{ moon.current_health }}</p>
-        <p>Deterioration Amount: {{ moon.deteriorationAmount }}</p>
-        <p>Deterioration Rate: {{ moon.deteriorationRate }} (1000 = every 1 second)</p>
+        <p>Interval Started: <input type="text" v-model="moon.interval_started"></p>
+        <p>Max Health: <input type="text" v-model="moon.max_health"></p>
+        <p>Current Health: <input type="text" v-model="moon.current_health"></p>
+        <p>Deterioration Amount: <input type="text" v-model="moon.deteriorationAmount"></p>
+        <p>Deterioration Rate: <input type="text" v-model="moon.deteriorationRate"> (1000 = every 1 second)</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, watchEffect, ref } from 'vue';
 
 export default {
   setup() {
-    let moon = {
+    let moon = ref({})
+    moon = {
       interval_started: false,
       max_health: 5000,
       current_health: 5000,
@@ -68,12 +69,19 @@ export default {
       // FIXME Write player Statistics to page
       // console.log("drawStats", moon, player)
 
+      watchEffect(() => {
+        console.log('watchEffect triggered!', moon)
+        moon.value = { ...moon }
+      })
+
     }
     return {
       moon: computed(() => moon),
+      player: computed(() => player),
 
       startInterval() {
         console.log("startInterval")
+        moon.startInterval = true
         let moonInterval = setInterval(() => {
           moon.current_health -= (moon.deteriorationAmount + player.extraction_amount_passive)
           player.resources_available += player.extraction_amount_passive
@@ -108,10 +116,18 @@ export default {
 </script>
 
 <style>
+input {
+  border: none !important;
+  background-color: var(--bs-body-bg);
+  border-radius: 5px;
+  color: var(--bs-dark);
+  width: 5vw;
+}
+
 .mmBody {
   background-color: #111111;
   color: var(--bs-body-bg);
   font-family: 'IM Fell DW Pica SC', serif;
-  min-height: 45vh;
+  min-height: 35vh;
 }
 </style>
