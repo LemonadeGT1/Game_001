@@ -1,21 +1,23 @@
 <template>
-  <div class="container-fluid mmBody">
-    <div class="row text-center p-3">
-      <h3>Welcome to Moon Miner II</h3>
-      <div class="col-12"></div>
-    </div>
-    <div class="row justify-content-around">
-      <div class="col-3 text-center">
-        <button v-if="moon.interval_started != true" class="btn btn-dark"
-          @click="startInterval(); moon.interval_started = true;">Start</button>
-        <button v-else class="btn btn-dark" disabled>Start</button>
+  <div class="mmBody">
+    <div class="container-fluid mmBlur">
+      <div class="row text-center p-3">
+        <h3 class="text-shadow">Welcome to Moon Miner II</h3>
+        <div class="col-12"></div>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-12 text-center p-3">
-        <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()"
-          class="rounded-circle">
-        <img v-else src="../assets/img/moonSM_v2.png" disabled onclick="window.alert('Click Start button to begin');">
+      <div class="row justify-content-around">
+        <div class="col-3 text-center">
+          <button v-if="moon.interval_started != true" class="btn btn-dark"
+            @click="startInterval(); moon.interval_started = true;">Start</button>
+          <button v-else class="btn btn-dark" disabled>Start</button>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 text-center p-3">
+          <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()"
+            class="rounded-circle">
+          <img v-else src="../assets/img/moonSM_v2.png" disabled onclick="window.alert('Click Start button to begin');">
+        </div>
       </div>
     </div>
   </div>
@@ -28,22 +30,22 @@
     <div class="row">
       <div class="col-12">
         <h4 class="text-center">Moon</h4>
-        <p>Interval Started: <input type="text" v-model="moon.interval_started">
-          <br>Max Health: <input type="text" v-model="moon.max_health">
-          <br>Current Health: <input type="text" v-model="moon.current_health">
-          <br>Deterioration Amount: <input type="text" v-model="moon.deteriorationAmount">
-          <br>Deterioration Rate: <input type="text" v-model="moon.deteriorationRate"> (1000 = every 1 second)
+        <p>Interval Started: <span>{{ moon.interval_started }}</span>
+          <br>Max Health: <span>{{ moon.max_health }}</span>
+          <br>Current Health: <span>{{ moon.current_health }}</span>
+          <br>Deterioration Amount: <span>{{ moon.deteriorationAmount }}</span>
+          <br>Deterioration Rate: <span>{{ moon.deteriorationRate }}</span> (1000 = every 1 second)
         </p>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
         <h4 class="text-center">Player</h4>
-        <p>Resources Available: <input type="text" v-model="player.resources_available">
-          <br>Resources Extracted: <input type="text" v-model="player.resources_extracted">
-          <br>Extraction Amount (per click): <input type="text" v-model="player.extraction_amount_click">
-          <br>Extraction Amount (passive): <input type="text" v-model="player.extraction_amount_passive">
-          <br>Total Clicks: <input type="text" v-model="player.totalClicks">
+        <p>Resources Available: <span>{{ player.resources_available }}</span>
+          <br>Resources Extracted: <span>{{ player.resources_extracted }}</span>
+          <br>Extraction Amount (per click): <span>{{ player.extraction_amount_click }}</span>
+          <br>Extraction Amount (passive): <span>{{ player.extraction_amount_passive }}</span>
+          <br>Total Clicks: <span>{{ player.totalClicks }}</span>
         </p>
       </div>
     </div>
@@ -130,22 +132,28 @@ export default {
 </script>
 
 <style>
-input {
+span {
   border: none !important;
   background-color: var(--bs-body-bg);
   border-radius: 5px;
-  color: var(--bs-dark);
-  width: 50px;
+  color: var(--bs-heading-color);
 }
 
 .mmBody {
   background-color: #111111;
   color: var(--bs-body-bg);
   font-family: 'IM Fell DW Pica SC', serif;
-  min-height: 35vh;
+  /* min-height: 35vh; */
   background-image: url('https://apod.nasa.gov/apod/image/2308/Pacman_Stocks_2560.jpg');
   background-size: cover;
   background-position: center;
-  backdrop-filter: blur(10px);
+}
+
+.mmBlur {
+  backdrop-filter: blur(5px);
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px #000000;
 }
 </style>
