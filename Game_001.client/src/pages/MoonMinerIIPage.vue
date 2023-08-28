@@ -2,7 +2,7 @@
   <div class="mmBody">
     <div class="container-fluid mmBlur">
       <div class="row text-center p-3">
-        <h3 class="text-shadow">Welcome to Moon Miner II</h3>
+        <h3 class="header">Welcome to Moon Miner II</h3>
         <div class="col-12"></div>
       </div>
       <div class="row justify-content-around">
@@ -144,7 +144,8 @@ span {
   color: var(--bs-body-bg);
   font-family: 'IM Fell DW Pica SC', serif;
   /* min-height: 35vh; */
-  background-image: url('https://apod.nasa.gov/apod/image/2308/Pacman_Stocks_2560.jpg');
+  /* background-image: url('https://apod.nasa.gov/apod/image/2308/Pacman_Stocks_2560.jpg'); */
+  background-image: url('https://apod.nasa.gov/apod/image/2308/nh-northpolerotatedcontrast.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -153,7 +154,8 @@ span {
   backdrop-filter: blur(5px);
 }
 
-.text-shadow {
+.header {
   text-shadow: 2px 2px 4px #000000;
+  color: var(--bs-light);
 }
 </style>
