@@ -13,8 +13,9 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-12 text-center p-3">
-        <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()">
-        <img v-else src="../assets/img/moonSM_v2.png" onclick="window.alert('Click Start button to begin');">
+        <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()"
+          class="rounded-circle">
+        <img v-else src="../assets/img/moonSM_v2.png" disabled onclick="window.alert('Click Start button to begin');">
       </div>
     </div>
   </div>
@@ -142,5 +143,9 @@ input {
   color: var(--bs-body-bg);
   font-family: 'IM Fell DW Pica SC', serif;
   min-height: 35vh;
+  background-image: url('https://apod.nasa.gov/apod/image/2308/Pacman_Stocks_2560.jpg');
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(10px);
 }
 </style>
