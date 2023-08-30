@@ -99,7 +99,7 @@ export default {
     }
     function stopInterval() {
       console.log("stopInterval")
-      clearInterval(AppState.moonInterval);
+      clearInterval(AppState.moon.moonInterval);
     }
 
     function drawStats() {
@@ -132,7 +132,7 @@ export default {
       startInterval() {
         console.log("startInterval")
         this.gameSetup()
-        AppState.moonInterval = setInterval(() => {
+        AppState.moon.moonInterval = setInterval(() => {
           AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
           AppState.player.resources_available += AppState.player.extraction_amount_passive
           AppState.player.resources_extracted += AppState.player.extraction_amount_passive
