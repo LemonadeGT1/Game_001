@@ -73,8 +73,8 @@
       <div class="col-12">
         <h4 class="text-center pt-3">Moon</h4>
         <p>Interval Started: <span class="stats">{{ moon.interval_started }}</span>
-          <br>Max Health: <span class="stats">{{ moon.max_health }}</span>
-          <br>Current Health: <span class="stats">{{ moon.current_health }}</span>
+          <br>Maximum Slices: <span class="stats">{{ moon.max_health }}</span>
+          <br>Slices Left: <span class="stats">{{ moon.current_health }}</span>
           <br>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}
             ms</span>
         </p>
