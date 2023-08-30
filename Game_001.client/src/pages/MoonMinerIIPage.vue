@@ -24,7 +24,18 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 text-center">
-        <h4 class="text-dark py-3">Mining Tools</h4>
+        <h4 class="text-dark pt-3">Mining Tools</h4>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center p-1 d-none d-md-block">
+        <h6>Click</h6> Additional slices per click
+      </div>
+      <div class="col-md-4 text-center p-1 d-none d-md-block">
+        <h6>Passive</h6> Gain slices without clicking
+      </div>
+      <div class="col-md-4 text-center p-1 d-none d-md-block">
+        <h6>Stasis</h6> Slow the molding process
       </div>
     </div>
     <div class="row justify-content-center">
@@ -47,8 +58,8 @@
         <p>Interval Started: <span class="stats">{{ moon.interval_started }}</span>
           <br>Max Health: <span class="stats">{{ moon.max_health }}</span>
           <br>Current Health: <span class="stats">{{ moon.current_health }}</span>
-          <br>Deterioration Amount: <span class="stats">{{ moon.deteriorationAmount }}</span>
-          <br>Deterioration Rate: <span class="stats">{{ moon.deteriorationRate }}</span> (1000 = every 1 second)
+          <br>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}
+            ms</span>
         </p>
       </div>
     </div>
