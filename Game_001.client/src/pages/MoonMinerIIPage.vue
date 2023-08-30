@@ -110,9 +110,11 @@ export default {
   setup() {
     AppState.moon = {
       interval_started: false,
-      max_health: 500,
-      current_health: 500,
+      max_health: 5000,
+      current_health: 5000,
+      deteriorationAmount_start: 3,
       deteriorationAmount: 3,
+      deteriorationRate_start: 1000,
       deteriorationRate: 1000
     }
 
@@ -223,6 +225,8 @@ export default {
         // Moon
         AppState.moon.interval_started = true
         AppState.moon.current_health = AppState.moon.max_health
+        AppState.moon.deteriorationAmount = AppState.moon.deteriorationAmount_start
+        AppState.moon.deteriorationRate = AppState.moon.deteriorationRate_start
         // Player
         AppState.player.resources_available = 0
         AppState.player.resources_extracted = 0
