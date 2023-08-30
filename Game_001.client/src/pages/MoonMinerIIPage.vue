@@ -41,15 +41,32 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-4 text-center p-1">
         <button v-if="player.resources_available >= cheeseSlicer.price && moon.interval_started == true"
-          class="btn btn-dark" @click="buyEquipment(cheeseSlicer)">Cheese Slicer +1 slice/click (${{ cheeseSlicer.price
+          class="btn btn-danger" @click="buyEquipment(cheeseSlicer)">Cheese Slicer +{{ cheeseSlicer.power }} slice/click
+          (${{ cheeseSlicer.price }})</button>
+        <button v-else class="btn btn-dark disabled">Cheese Slicer +{{ cheeseSlicer.power }} slice/click (${{
+          cheeseSlicer.price }})</button>
+      </div>
+      <div class="col-12 col-md-4 text-center p-1">
+        <button class="btn btn-dark disabled">Tool</button>
+      </div>
+      <div class="col-12 col-md-4 text-center p-1">
+        <button class="btn btn-dark disabled">Tool</button>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-4 text-center p-1">
+        <button v-if="player.resources_available >= cheeseKnife.price && moon.interval_started == true"
+          class="btn btn-danger" @click="buyEquipment(cheeseKnife)">Cheese Knife +{{ cheeseKnife.power }} slice/click (${{
+            cheeseKnife.price
           }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Slicer +1 slice/click (${{ cheeseSlicer.price }})</button>
+        <button v-else class="btn btn-dark disabled">Cheese Knife +{{ cheeseKnife.power }} slice/click (${{
+          cheeseKnife.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
-        <button class="btn btn-dark">Tool</button>
+        <button class="btn btn-dark disabled">Tool</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
-        <button class="btn btn-dark">Tool</button>
+        <button class="btn btn-dark disabled">Tool</button>
       </div>
     </div>
     <div class="row">
@@ -116,6 +133,7 @@ export default {
     function drawStats() {
       // FIXME Write player Statistics to page
       // console.log("drawStats", AppState.moon, AppState.player)
+      checkEndGame()
     }
 
     return {
@@ -138,6 +156,21 @@ export default {
         quantityOwnedID: 'plusCheeseSlicers',
         toolButtonID: 'addCheeseSlicer',
         totalFromToolID: 'plusCheeseSlicerTotal'
+      },
+
+      cheeseKnife: {
+        nameID: 'cheeseKnife',
+        type: 'click',
+        power: 9,
+        start_price: 200,
+        price: 200,
+        priceID: 'addCheeseKnifePrice',
+        priceIncrementor: 15,
+        start_quantityOwned: 0,
+        quantityOwned: 0,
+        quantityOwnedID: 'plusCheeseKnifes',
+        toolButtonID: 'addCheeseKnife',
+        totalFromToolID: 'plusCheeseKnifeTotal'
       },
 
       startInterval() {
@@ -163,6 +196,7 @@ export default {
         AppState.player.totalClicks = 0
         // Tools
         this.cheeseSlicer.price = this.cheeseSlicer.start_price
+        this.cheeseKnife.price = this.cheeseKnife.start_price
       },
 
       mineMoon() {
