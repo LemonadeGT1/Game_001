@@ -47,7 +47,11 @@
           cheeseSlicer.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
-        <button class="btn btn-dark disabled">Tool</button>
+        <button v-if="player.resources_available >= cheeseStraw.price && moon.interval_started == true"
+          class="btn btn-danger" @click="buyEquipment(cheeseStraw)">Cheese Straw +{{ cheeseStraw.power }} slice/tick
+          (${{ cheeseStraw.price }})</button>
+        <button v-else class="btn btn-dark disabled">Cheese Straw +{{ cheeseStraw.power }} slice/tick (${{
+          cheeseSlicer.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button class="btn btn-dark disabled">Tool</button>
@@ -76,7 +80,7 @@
           <br>Maximum Slices: <span class="stats">{{ moon.max_health }}</span>
           <br>Slices Left: <span class="stats">{{ moon.current_health }}</span>
           <br>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}
-            ms</span>
+            ms (tick)</span>
         </p>
       </div>
     </div>
@@ -171,6 +175,19 @@ export default {
         quantityOwnedID: 'plusCheeseKnifes',
         toolButtonID: 'addCheeseKnife',
         totalFromToolID: 'plusCheeseKnifeTotal'
+      },
+
+      cheeseStraw: {
+        nameID: 'cheeseStraw',
+        type: 'ongoing',
+        power: 2,
+        price: 25,
+        priceID: 'addCheeseStrawPrice',
+        priceIncrementor: 3,
+        quantityOwned: 0,
+        quantityOwnedID: 'plusCheeseStraws',
+        toolButtonID: 'addCheeseStraw',
+        totalFromToolID: 'plus1CheeseStrawsTotal'
       },
 
       startInterval() {
