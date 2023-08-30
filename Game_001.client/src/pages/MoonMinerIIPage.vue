@@ -51,7 +51,7 @@
           class="btn btn-danger" @click="buyEquipment(cheeseStraw)">Cheese Straw +{{ cheeseStraw.power }} slice/tick
           (${{ cheeseStraw.price }})</button>
         <button v-else class="btn btn-dark disabled">Cheese Straw +{{ cheeseStraw.power }} slice/tick (${{
-          cheeseSlicer.price }})</button>
+          cheeseStraw.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button class="btn btn-dark disabled">Tool</button>
@@ -67,7 +67,11 @@
           cheeseKnife.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
-        <button class="btn btn-dark disabled">Tool</button>
+        <button v-if="player.resources_available >= cheeseVacuum.price && moon.interval_started == true"
+          class="btn btn-danger" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum +{{ cheeseVacuum.power }} slice/tick
+          (${{ cheeseVacuum.price }})</button>
+        <button v-else class="btn btn-dark disabled">Cheese Vacuum +{{ cheeseVacuum.power }} slice/tick (${{
+          cheeseVacuum.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button class="btn btn-dark disabled">Tool</button>
@@ -181,6 +185,7 @@ export default {
         nameID: 'cheeseStraw',
         type: 'ongoing',
         power: 2,
+        start_price: 25,
         price: 25,
         priceID: 'addCheeseStrawPrice',
         priceIncrementor: 3,
@@ -188,6 +193,20 @@ export default {
         quantityOwnedID: 'plusCheeseStraws',
         toolButtonID: 'addCheeseStraw',
         totalFromToolID: 'plus1CheeseStrawsTotal'
+      },
+
+      cheeseVacuum: {
+        nameID: 'cheeseVacuum',
+        type: 'ongoing',
+        power: 9,
+        start_price: 200,
+        price: 200,
+        priceID: 'addCheeseVacuumPrice',
+        priceIncrementor: 15,
+        quantityOwned: 0,
+        quantityOwnedID: 'plusCheeseVacuums',
+        toolButtonID: 'addCheeseVacuum',
+        totalFromToolID: 'plus1CheeseVacuumsTotal'
       },
 
       startInterval() {
@@ -214,6 +233,8 @@ export default {
         // Tools
         this.cheeseSlicer.price = this.cheeseSlicer.start_price
         this.cheeseKnife.price = this.cheeseKnife.start_price
+        this.cheeseStraw.price = this.cheeseStraw.start_price
+        this.cheeseVacuum.price = this.cheeseVacuum.start_price
       },
 
       mineMoon() {
