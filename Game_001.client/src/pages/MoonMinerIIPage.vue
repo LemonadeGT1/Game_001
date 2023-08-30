@@ -9,13 +9,13 @@
         <div class="col-3 text-center">
           <button v-if="moon.interval_started != true" class="btn btn-dark"
             @click="startInterval(); moon.interval_started = true;">Start</button>
-          <button v-else class="btn btn-dark" disabled>Start</button>
+          <!-- <button v-else class="btn btn-dark" disabled>Start</button> -->
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="col-12 text-center p-3">
           <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()"
-            class="rounded-circle">
+            class="moon rounded-circle">
           <img v-else src="../assets/img/moonSM_v2.png" disabled onclick="window.alert('Click Start button to begin');">
         </div>
       </div>
@@ -24,28 +24,42 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 text-center">
-        <h4 class="text-dark">Mining Tools</h4>
+        <h4 class="text-dark py-3">Mining Tools</h4>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-4 text-center p-1">
+        <button v-if="player.resources_available >= cheeseSlicer.price && moon.interval_started == true"
+          class="btn btn-dark" @click="buyEquipment(cheeseSlicer)">Cheese Slicer +1 slice/click (${{ cheeseSlicer.price
+          }})</button>
+        <button v-else class="btn btn-dark disabled">Cheese Slicer +1 slice/click (${{ cheeseSlicer.price }})</button>
+      </div>
+      <div class="col-12 col-md-4 text-center p-1">
+        <button class="btn btn-dark">Tool</button>
+      </div>
+      <div class="col-12 col-md-4 text-center p-1">
+        <button class="btn btn-dark">Tool</button>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <h4 class="text-center">Moon</h4>
-        <p>Interval Started: <span>{{ moon.interval_started }}</span>
-          <br>Max Health: <span>{{ moon.max_health }}</span>
-          <br>Current Health: <span>{{ moon.current_health }}</span>
-          <br>Deterioration Amount: <span>{{ moon.deteriorationAmount }}</span>
-          <br>Deterioration Rate: <span>{{ moon.deteriorationRate }}</span> (1000 = every 1 second)
+        <h4 class="text-center pt-3">Moon</h4>
+        <p>Interval Started: <span class="stats">{{ moon.interval_started }}</span>
+          <br>Max Health: <span class="stats">{{ moon.max_health }}</span>
+          <br>Current Health: <span class="stats">{{ moon.current_health }}</span>
+          <br>Deterioration Amount: <span class="stats">{{ moon.deteriorationAmount }}</span>
+          <br>Deterioration Rate: <span class="stats">{{ moon.deteriorationRate }}</span> (1000 = every 1 second)
         </p>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
         <h4 class="text-center">Player</h4>
-        <p>Resources Available: <span>{{ player.resources_available }}</span>
-          <br>Resources Extracted: <span>{{ player.resources_extracted }}</span>
-          <br>Extraction Amount (per click): <span>{{ player.extraction_amount_click }}</span>
-          <br>Extraction Amount (passive): <span>{{ player.extraction_amount_passive }}</span>
-          <br>Total Clicks: <span>{{ player.totalClicks }}</span>
+        <p>Resources Available: <span class="stats">{{ player.resources_available }}</span>
+          <br>Resources Extracted: <span class="stats">{{ player.resources_extracted }}</span>
+          <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }}</span>
+          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }}</span>
+          <br>Total Moon Clicks: <span class="stats">{{ player.totalClicks }}</span>
         </p>
       </div>
     </div>
@@ -53,15 +67,15 @@
 </template>
 
 <script>
-import { computed, watchEffect } from 'vue';
+import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 
 export default {
   setup() {
     AppState.moon = {
       interval_started: false,
-      max_health: 5000,
-      current_health: 5000,
+      max_health: 500,
+      current_health: 500,
       deteriorationAmount: 3,
       deteriorationRate: 1000
     }
@@ -75,12 +89,17 @@ export default {
     }
 
     function checkEndGame() {
-      if (moon.current_health <= 0) {
+      if (AppState.moon.current_health <= 0) {
         stopInterval()
-        moon.current_health = 0
-        console.log("Game Over: ", player)
+        AppState.moon.current_health = 0
+        AppState.moon.interval_started = false
+        console.log("Game Over: ", AppState.player)
         // FIXME Disable each tool (no more purchases after game end)
       }
+    }
+    function stopInterval() {
+      console.log("stopInterval")
+      clearInterval(AppState.moonInterval);
     }
 
     function drawStats() {
@@ -88,20 +107,32 @@ export default {
       // console.log("drawStats", AppState.moon, AppState.player)
     }
 
-    // watchEffect(() => {
-    //   console.log('watchEffect triggered!', moon)
-    //   moon.value = { ...moon }
-    // })
-
     return {
       moon: computed(() => AppState.moon),
 
       player: computed(() => AppState.player),
 
+      tools: computed(() => AppState.tools),
+
+      cheeseSlicer: {
+        nameID: 'cheeseSlicer',
+        type: 'click',
+        power: 1,
+        start_price: 50,
+        price: 50,
+        priceID: 'addCheeseSlicerPrice',
+        priceIncrementor: 10,
+        start_quantityOwned: 0,
+        quantityOwned: 0,
+        quantityOwnedID: 'plusCheeseSlicers',
+        toolButtonID: 'addCheeseSlicer',
+        totalFromToolID: 'plusCheeseSlicerTotal'
+      },
+
       startInterval() {
         console.log("startInterval")
-        AppState.moon.interval_started = true
-        let moonInterval = setInterval(() => {
+        this.gameSetup()
+        AppState.moonInterval = setInterval(() => {
           AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
           AppState.player.resources_available += AppState.player.extraction_amount_passive
           AppState.player.resources_extracted += AppState.player.extraction_amount_passive
@@ -109,11 +140,18 @@ export default {
         }, AppState.moon.deteriorationRate)
       },
 
-
-      stopInterval() {
-        console.log("stopInterval")
-        // FIXME Figure out how to set up moonInterval so it is accessible here
-        clearInterval(moonInterval);
+      gameSetup() {
+        // Moon
+        AppState.moon.interval_started = true
+        AppState.moon.current_health = AppState.moon.max_health
+        // Player
+        AppState.player.resources_available = 0
+        AppState.player.resources_extracted = 0
+        AppState.player.extraction_amount_click = 1
+        AppState.player.extraction_amount_passive = 0
+        AppState.player.totalClicks = 0
+        // Tools
+        this.cheeseSlicer.price = this.cheeseSlicer.start_price
       },
 
       mineMoon() {
@@ -125,6 +163,23 @@ export default {
         } else {
           checkEndGame()
         }
+      },
+
+      buyEquipment(name) {
+        let currentTool = name
+        console.log('currentTool: ', currentTool)
+
+        if (AppState.player.resources_available >= currentTool.price) {
+          AppState.player.resources_available -= currentTool.price
+          currentTool.quantityOwned++
+          currentTool.price += currentTool.priceIncrementor
+
+          if (currentTool.type == 'click') {
+            AppState.player.extraction_amount_click += currentTool.power
+          } else if (currentTool.type == 'ongoing') AppState.player.extraction_amount_passive += currentTool.power
+        }
+
+        drawStats()
       }
     };
   },
@@ -132,7 +187,7 @@ export default {
 </script>
 
 <style>
-span {
+.stats {
   border: none !important;
   background-color: var(--bs-body-bg);
   border-radius: 5px;
@@ -152,6 +207,10 @@ span {
 
 .mmBlur {
   backdrop-filter: blur(5px);
+}
+
+.moon {
+  cursor: url("../assets/img/pickaxe2.svg"), auto;
 }
 
 .header {
