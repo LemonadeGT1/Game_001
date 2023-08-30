@@ -129,12 +129,11 @@ export default {
         stopInterval()
         AppState.moon.current_health = 0
         AppState.moon.interval_started = false
-        console.log("Game Over: ", AppState.player)
-        // FIXME Disable each tool (no more purchases after game end)
+        // console.log("Game Over: ", AppState.player)
       }
     }
     function stopInterval() {
-      console.log("stopInterval")
+      // console.log("stopInterval")
       clearInterval(AppState.moon.moonInterval);
     }
 
@@ -169,9 +168,9 @@ export default {
       cheeseKnife: {
         nameID: 'cheeseKnife',
         type: 'click',
-        power: 9,
-        start_price: 200,
-        price: 200,
+        power: 15,
+        start_price: 500,
+        price: 500,
         priceID: 'addCheeseKnifePrice',
         priceIncrementor: 15,
         start_quantityOwned: 0,
@@ -210,7 +209,7 @@ export default {
       },
 
       startInterval() {
-        console.log("startInterval")
+        // console.log("startInterval")
         this.gameSetup()
         AppState.moon.moonInterval = setInterval(() => {
           AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
@@ -250,7 +249,7 @@ export default {
 
       buyEquipment(name) {
         let currentTool = name
-        console.log('currentTool: ', currentTool)
+        // console.log('currentTool: ', currentTool)
 
         if (AppState.player.resources_available >= currentTool.price) {
           AppState.player.resources_available -= currentTool.price
