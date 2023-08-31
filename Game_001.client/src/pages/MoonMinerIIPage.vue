@@ -132,18 +132,14 @@ export default {
         stopInterval()
         AppState.moon.current_health = 0
         AppState.moon.interval_started = false
-        // console.log("Game Over: ", AppState.player)
         Pop.success("Game Over!")
       }
     }
     function stopInterval() {
-      // console.log("stopInterval")
       clearInterval(AppState.moon.moonInterval);
     }
 
     function drawStats() {
-      // FIXME Write player Statistics to page
-      // console.log("drawStats", AppState.moon, AppState.player)
       checkEndGame()
     }
 
@@ -213,7 +209,6 @@ export default {
       },
 
       startInterval() {
-        // console.log("startInterval")
         this.gameSetup()
         AppState.moon.moonInterval = setInterval(() => {
           AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
@@ -255,8 +250,6 @@ export default {
 
       buyEquipment(name) {
         let currentTool = name
-        // console.log('currentTool: ', currentTool)
-
         if (AppState.player.resources_available >= currentTool.price) {
           AppState.player.resources_available -= currentTool.price
           currentTool.quantityOwned++
