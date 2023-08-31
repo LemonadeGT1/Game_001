@@ -48,7 +48,7 @@
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button v-if="player.resources_available >= cheeseStraw.price && moon.interval_started == true"
-          class="btn btn-danger" @click="buyEquipment(cheeseStraw)">Cheese Straw +{{ cheeseStraw.power }} slice/tick
+          class="btn btn-warning" @click="buyEquipment(cheeseStraw)">Cheese Straw +{{ cheeseStraw.power }} slice/tick
           (${{ cheeseStraw.price }})</button>
         <button v-else class="btn btn-dark disabled">Cheese Straw +{{ cheeseStraw.power }} slice/tick (${{
           cheeseStraw.price }})</button>
@@ -68,7 +68,7 @@
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button v-if="player.resources_available >= cheeseVacuum.price && moon.interval_started == true"
-          class="btn btn-danger" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum +{{ cheeseVacuum.power }} slice/tick
+          class="btn btn-warning" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum +{{ cheeseVacuum.power }} slice/tick
           (${{ cheeseVacuum.price }})</button>
         <button v-else class="btn btn-dark disabled">Cheese Vacuum +{{ cheeseVacuum.power }} slice/tick (${{
           cheeseVacuum.price }})</button>
