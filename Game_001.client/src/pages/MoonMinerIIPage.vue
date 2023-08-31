@@ -105,6 +105,7 @@
 <script>
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
+import Pop from "../utils/Pop.js";
 
 export default {
   setup() {
@@ -132,6 +133,7 @@ export default {
         AppState.moon.current_health = 0
         AppState.moon.interval_started = false
         // console.log("Game Over: ", AppState.player)
+        Pop.success("Game Over!")
       }
     }
     function stopInterval() {
