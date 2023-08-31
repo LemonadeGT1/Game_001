@@ -94,7 +94,7 @@
         <p>Resources Available: <span class="stats">{{ player.resources_available }}</span>
           <br>Resources Extracted: <span class="stats">{{ player.resources_extracted }}</span>
           <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }}</span>
-          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }}</span>
+          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} / tick</span>
           <br>Total Moon Clicks: <span class="stats">{{ player.totalClicks }}</span>
         </p>
       </div>
