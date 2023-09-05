@@ -152,10 +152,8 @@ export default {
         AppState.moon.current_health = 0
         AppState.moon.interval_started = false
         AppState.player.end_time = Date.now()
-        AppState.player.elapsed_time = Math.floor((AppState.player.end_time - AppState.player.start_time) / 1000)
+        AppState.player.elapsed_time = ((AppState.player.end_time - AppState.player.start_time) / 1000).toFixed(2)
         Pop.success("Game Over!")
-        console.log("Player: ", player)
-        console.log("Moon: ", moon)
       }
     }
     function stopInterval() {
@@ -289,6 +287,7 @@ export default {
         // Player
         AppState.player.resources_available = 0
         AppState.player.resources_extracted = 0
+        AppState.player.resources_spent_on_tools = 0
         AppState.player.extraction_amount_click = 1
         AppState.player.extraction_amount_passive = 0
         AppState.player.totalClicks = 0
