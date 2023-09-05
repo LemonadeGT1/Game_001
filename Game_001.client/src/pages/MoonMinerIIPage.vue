@@ -49,15 +49,15 @@
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button v-if="player.resources_available >= cheeseStraw.price && moon.interval_started == true"
-          class="btn btn-warning" @click="buyEquipment(cheeseStraw)">Cheese Straw +{{ cheeseStraw.power }} slice/tick
+          class="btn btn-warning" @click="buyEquipment(cheeseStraw)">Cheese Straw +{{ cheeseStraw.power }} slice/second
           (${{ cheeseStraw.price }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Straw +{{ cheeseStraw.power }} slice/tick (${{
+        <button v-else class="btn btn-dark disabled">Cheese Straw +{{ cheeseStraw.power }} slice/second (${{
           cheeseStraw.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button v-if="player.resources_available >= cheeseSpray.price && moon.interval_started == true"
-          class="btn btn-info" @click="buyEquipment(cheeseSpray)">Cheese Spray +{{ cheeseSpray.power }} slice/tick
-          (${{ cheeseSpray.price }})</button>
+          class="btn btn-info" @click="buyEquipment(cheeseSpray)">Cheese Spray +{{ cheeseSpray.power }}ms (${{
+            cheeseSpray.price }})</button>
         <button v-else class="btn btn-dark disabled">Cheese Spray + {{ cheeseSpray.power }}ms (${{
           cheeseSpray.price }})</button>
       </div>
@@ -73,15 +73,14 @@
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button v-if="player.resources_available >= cheeseVacuum.price && moon.interval_started == true"
-          class="btn btn-warning" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum +{{ cheeseVacuum.power }} slice/tick
+          class="btn btn-warning" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum +{{ cheeseVacuum.power }} slice/second
           (${{ cheeseVacuum.price }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Vacuum +{{ cheeseVacuum.power }} slice/tick (${{
+        <button v-else class="btn btn-dark disabled">Cheese Vacuum +{{ cheeseVacuum.power }} slice/second (${{
           cheeseVacuum.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
         <button v-if="player.resources_available >= cheeseOil.price && moon.interval_started == true" class="btn btn-info"
-          @click="buyEquipment(cheeseOil)">Cheese Oil +{{ cheeseOil.power }} slice/tick
-          (${{ cheeseOil.price }})</button>
+          @click="buyEquipment(cheeseOil)">Cheese Oil +{{ cheeseOil.power }}ms (${{ cheeseOil.price }})</button>
         <button v-else class="btn btn-dark disabled">Cheese Oil + {{ cheeseOil.power }}ms (${{
           cheeseOil.price }})</button>
       </div>
@@ -90,10 +89,11 @@
       <div class="col-12">
         <h4 class="text-center pt-3">Moon</h4>
         <p>Interval Started: <span class="stats">{{ moon.interval_started }}</span>
-          <br>Maximum Slices: <span class="stats">{{ moon.max_health }}</span>
+          <br>Starting Slices: <span class="stats">{{ moon.max_health }}</span>
           <br>Slices Left: <span class="stats">{{ moon.current_health }}</span>
-          <br>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}
-            ms (tick)</span>
+          <br>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}ms
+            (tick)</span>
+          <br>Slices lost to mold: <span class="stats">{{ moon.slices_lost }}</span>
         </p>
       </div>
     </div>
@@ -102,8 +102,9 @@
         <h4 class="text-center">Player</h4>
         <p>Resources Available: <span class="stats">{{ player.resources_available }}</span>
           <br>Resources Extracted: <span class="stats">{{ player.resources_extracted }}</span>
+          <br>Resources spent on tools: <span class="stats">{{ player.resources_spent_on_tools }}</span>
           <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }}</span>
-          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} / tick</span>
+          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} / second</span>
           <br>Total Moon Clicks: <span class="stats">{{ player.totalClicks }}</span>
         </p>
       </div>
@@ -125,12 +126,14 @@ export default {
       deteriorationAmount_start: 3,
       deteriorationAmount: 3,
       deteriorationRate_start: 1000,
-      deteriorationRate: 1000
+      deteriorationRate: 1000,
+      slices_lost: 0
     }
 
     AppState.player = {
       resources_available: 0,
       resources_extracted: 0,
+      resources_spent_on_tools: 0,
       extraction_amount_click: 1,
       extraction_amount_passive: 0,
       totalClicks: 0,
@@ -246,6 +249,7 @@ export default {
         this.gameSetup()
         AppState.moon.moonInterval = setInterval(() => {
           AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
+          AppState.moon.slices_lost += AppState.moon.deteriorationAmount
           drawStats()
         }, AppState.moon.deteriorationRate)
       },
@@ -254,6 +258,7 @@ export default {
       reStartInterval() {
         AppState.moon.moonInterval = setInterval(() => {
           AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
+          AppState.moon.slices_lost += AppState.moon.deteriorationAmount
           drawStats()
         }, AppState.moon.deteriorationRate)
       },
@@ -304,6 +309,7 @@ export default {
         let currentTool = name
         if (AppState.player.resources_available >= currentTool.price) {
           AppState.player.resources_available -= currentTool.price
+          AppState.player.resources_spent_on_tools += currentTool.price
           currentTool.quantityOwned++
           currentTool.price += currentTool.priceIncrementor
 
