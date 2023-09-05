@@ -8,7 +8,7 @@
       <div class="row justify-content-around">
         <div class="col-3 text-center">
           <button v-if="moon.interval_started != true" class="btn btn-dark"
-            @click="startInterval(); moon.interval_started = true;">Start</button>
+            @click="startInterval(); moon.interval_started = true; startPlayerInterval();">Start</button>
           <!-- <button v-else class="btn btn-dark" disabled>Start</button> -->
         </div>
       </div>
@@ -16,7 +16,8 @@
         <div class="col-12 text-center p-3">
           <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()"
             class="moon rounded-circle">
-          <img v-else src="../assets/img/moonSM_v2.png" disabled onclick="window.alert('Click Start button to begin');">
+          <img v-else src="../assets/img/moonSM_v2.png" disabled onclick="window.alert('Click Start button to begin');"
+            class="moon rounded-circle">
         </div>
       </div>
     </div>
@@ -54,7 +55,11 @@
           cheeseStraw.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
-        <button class="btn btn-dark disabled">Tool</button>
+        <button v-if="player.resources_available >= cheeseSpray.price && moon.interval_started == true"
+          class="btn btn-info" @click="buyEquipment(cheeseSpray)">Cheese Spray +{{ cheeseSpray.power }} slice/tick
+          (${{ cheeseSpray.price }})</button>
+        <button v-else class="btn btn-dark disabled">Cheese Spray + {{ cheeseSpray.power }}ms (${{
+          cheeseSpray.price }})</button>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -74,7 +79,11 @@
           cheeseVacuum.price }})</button>
       </div>
       <div class="col-12 col-md-4 text-center p-1">
-        <button class="btn btn-dark disabled">Tool</button>
+        <button v-if="player.resources_available >= cheeseOil.price && moon.interval_started == true" class="btn btn-info"
+          @click="buyEquipment(cheeseOil)">Cheese Oil +{{ cheeseOil.power }} slice/tick
+          (${{ cheeseOil.price }})</button>
+        <button v-else class="btn btn-dark disabled">Cheese Oil + {{ cheeseOil.power }}ms (${{
+          cheeseOil.price }})</button>
       </div>
     </div>
     <div class="row">
@@ -124,7 +133,11 @@ export default {
       resources_extracted: 0,
       extraction_amount_click: 1,
       extraction_amount_passive: 0,
-      totalClicks: 0
+      totalClicks: 0,
+      deteriorationAmount_start: 3,
+      deteriorationAmount: 3,
+      deteriorationRate_start: 1000,
+      deteriorationRate: 1000
     }
 
     function checkEndGame() {
@@ -137,6 +150,7 @@ export default {
     }
     function stopInterval() {
       clearInterval(AppState.moon.moonInterval);
+      clearInterval(AppState.player.playerInterval);
     }
 
     function drawStats() {
@@ -208,14 +222,50 @@ export default {
         totalFromToolID: 'plus1CheeseVacuumsTotal'
       },
 
+      cheeseSpray: {
+        nameID: 'cheeseSpray',
+        type: 'stasis',
+        power: 250,
+        start_price: 100,
+        price: 100,
+        priceIncrementor: 20,
+        quantityOwned: 0
+      },
+
+      cheeseOil: {
+        nameID: 'cheeseOil',
+        type: 'stasis',
+        power: 1000,
+        start_price: 300,
+        price: 300,
+        priceIncrementor: 30,
+        quantityOwned: 0
+      },
+
       startInterval() {
         this.gameSetup()
         AppState.moon.moonInterval = setInterval(() => {
           AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
+          drawStats()
+        }, AppState.moon.deteriorationRate)
+      },
+
+      // To start the interval without going through gameSetup
+      reStartInterval() {
+        AppState.moon.moonInterval = setInterval(() => {
+          AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
+          drawStats()
+        }, AppState.moon.deteriorationRate)
+      },
+
+      startPlayerInterval() {
+        this.gameSetup()
+        AppState.player.playerInterval = setInterval(() => {
+          AppState.moon.current_health -= AppState.player.extraction_amount_passive
           AppState.player.resources_available += AppState.player.extraction_amount_passive
           AppState.player.resources_extracted += AppState.player.extraction_amount_passive
           drawStats()
-        }, AppState.moon.deteriorationRate)
+        }, AppState.player.deteriorationRate)
       },
 
       gameSetup() {
@@ -235,6 +285,8 @@ export default {
         this.cheeseKnife.price = this.cheeseKnife.start_price
         this.cheeseStraw.price = this.cheeseStraw.start_price
         this.cheeseVacuum.price = this.cheeseVacuum.start_price
+        this.cheeseSpray.price = this.cheeseSpray.start_price
+        this.cheeseOil.price = this.cheeseOil.start_price
       },
 
       mineMoon() {
@@ -257,9 +309,15 @@ export default {
 
           if (currentTool.type == 'click') {
             AppState.player.extraction_amount_click += currentTool.power
-          } else if (currentTool.type == 'ongoing') AppState.player.extraction_amount_passive += currentTool.power
+          } else if (currentTool.type == 'ongoing') {
+            AppState.player.extraction_amount_passive += currentTool.power
+          } else if (currentTool.type == 'stasis') {
+            // Change the moon interval (deteriorationRate), then Stop and re-Start the interval to use the new value
+            AppState.moon.deteriorationRate += currentTool.power
+            clearInterval(AppState.moon.moonInterval)
+            this.reStartInterval()
+          }
         }
-
         drawStats()
       }
     };
@@ -292,6 +350,7 @@ export default {
 
 .moon {
   cursor: url("../assets/img/pickaxe2.svg"), auto;
+  filter: drop-shadow(1px 1px 5px #000000);
 }
 
 .header {
