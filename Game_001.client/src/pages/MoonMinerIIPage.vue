@@ -88,8 +88,7 @@
     <div class="row">
       <div class="col-12">
         <h4 class="text-center pt-3">Moon</h4>
-        <p>Interval Started: <span class="stats">{{ moon.interval_started }}</span>
-          <br>Starting Slices: <span class="stats">{{ moon.max_health }}</span>
+        <p>Starting Slices: <span class="stats">{{ moon.max_health }}</span>
           <br>Slices Left: <span class="stats">{{ moon.current_health }}</span>
           <br>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}ms
             (tick)</span>
@@ -100,12 +99,13 @@
     <div class="row">
       <div class="col-12">
         <h4 class="text-center">Player</h4>
-        <p>Resources Available: <span class="stats">{{ player.resources_available }}</span>
-          <br>Resources Extracted: <span class="stats">{{ player.resources_extracted }}</span>
-          <br>Resources spent on tools: <span class="stats">{{ player.resources_spent_on_tools }}</span>
+        <p>Slices Available: <span class="stats">{{ player.resources_available }}</span>
+          <br>Slices Extracted: <span class="stats">{{ player.resources_extracted }}</span>
+          <br>Slices spent on tools: <span class="stats">{{ player.resources_spent_on_tools }}</span>
           <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }}</span>
           <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} / second</span>
           <br>Total Moon Clicks: <span class="stats">{{ player.totalClicks }}</span>
+          <br>Elapsed Time: <span class="stats">{{ player.elapsed_time }} seconds</span>
         </p>
       </div>
     </div>
@@ -140,7 +140,10 @@ export default {
       deteriorationAmount_start: 3,
       deteriorationAmount: 3,
       deteriorationRate_start: 1000,
-      deteriorationRate: 1000
+      deteriorationRate: 1000,
+      start_time: Date(),
+      end_time: Date(),
+      elapsed_time: 0,
     }
 
     function checkEndGame() {
@@ -148,7 +151,11 @@ export default {
         stopInterval()
         AppState.moon.current_health = 0
         AppState.moon.interval_started = false
+        AppState.player.end_time = Date.now()
+        AppState.player.elapsed_time = Math.floor((AppState.player.end_time - AppState.player.start_time) / 1000)
         Pop.success("Game Over!")
+        console.log("Player: ", player)
+        console.log("Moon: ", moon)
       }
     }
     function stopInterval() {
@@ -248,7 +255,7 @@ export default {
       startInterval() {
         this.gameSetup()
         AppState.moon.moonInterval = setInterval(() => {
-          AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
+          AppState.moon.current_health -= (AppState.moon.deteriorationAmount)
           AppState.moon.slices_lost += AppState.moon.deteriorationAmount
           drawStats()
         }, AppState.moon.deteriorationRate)
@@ -257,7 +264,7 @@ export default {
       // To start the interval without going through gameSetup
       reStartInterval() {
         AppState.moon.moonInterval = setInterval(() => {
-          AppState.moon.current_health -= (AppState.moon.deteriorationAmount + AppState.player.extraction_amount_passive)
+          AppState.moon.current_health -= (AppState.moon.deteriorationAmount)
           AppState.moon.slices_lost += AppState.moon.deteriorationAmount
           drawStats()
         }, AppState.moon.deteriorationRate)
@@ -285,6 +292,7 @@ export default {
         AppState.player.extraction_amount_click = 1
         AppState.player.extraction_amount_passive = 0
         AppState.player.totalClicks = 0
+        AppState.player.start_time = Date.now()
         // Tools
         this.cheeseSlicer.price = this.cheeseSlicer.start_price
         this.cheeseKnife.price = this.cheeseKnife.start_price
