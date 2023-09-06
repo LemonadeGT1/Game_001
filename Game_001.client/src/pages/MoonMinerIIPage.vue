@@ -14,9 +14,9 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-12 text-center p-3">
-          <img v-if="moon.interval_started == true" src="../assets/img/moonSM_v2.png" @click="mineMoon()"
-            class="moon rounded-circle">
-          <img v-else src="../assets/img/moonSM_v2.png" disabled onclick="window.alert('Click Start button to begin');"
+          <img v-if="moon.interval_started == true" src="../assets/img/MoonLG.png" @click="mineMoon()"
+            class="moon rounded-circle rotate">
+          <img v-else src="../assets/img/MoonLG.png" disabled onclick="window.alert('Click Start button to begin');"
             class="moon rounded-circle">
         </div>
       </div>
@@ -101,9 +101,10 @@
         <h4 class="text-center">Player</h4>
         <p>Slices Available: <span class="stats">{{ player.resources_available }}</span>
           <br>Slices Extracted: <span class="stats">{{ player.resources_extracted }}</span>
-          <br>Slices spent on tools: <span class="stats">{{ player.resources_spent_on_tools }}</span>
-          <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }}</span>
-          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} / second</span>
+          <br>Slices Spent: <span class="stats">{{ player.resources_spent_on_tools }}</span>
+          <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }} Slices</span>
+          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} Slices per
+            Second</span>
           <br>Total Moon Clicks: <span class="stats">{{ player.totalClicks }}</span>
           <br>Elapsed Time: <span class="stats">{{ player.elapsed_time }} seconds</span>
         </p>
@@ -364,10 +365,26 @@ export default {
 .moon {
   cursor: url("../assets/img/pickaxe2.svg"), auto;
   filter: drop-shadow(1px 1px 5px #000000);
+  height: 150px;
 }
 
 .header {
   text-shadow: 2px 2px 4px #000000;
   color: var(--bs-light);
+}
+
+/* To rotate the moon */
+.rotate {
+  animation: rotation 8s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
 }
 </style>
