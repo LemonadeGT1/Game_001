@@ -274,6 +274,7 @@ export default {
         AppState.moon.current_health = AppState.moon.max_health
         AppState.moon.deteriorationAmount = AppState.moon.deteriorationAmount_start
         AppState.moon.deteriorationRate = AppState.moon.deteriorationRate_start
+        AppState.moon.slices_lost = 0
         // Player
         AppState.player.resources_available = 0
         AppState.player.resources_extracted = 0
