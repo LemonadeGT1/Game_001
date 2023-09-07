@@ -12,29 +12,26 @@
           <button v-else class="btn btn-dark" disabled>Start</button>
         </div>
       </div>
-      <div class="row justify-content-center header">
-        <div class="col-3"><span class="stats">MOON<br>Slices Left {{ moon.current_health }}</span></div>
+      <div class="row justify-content-center">
+        <div class="col-3"><span class="moon-text">MOON<br>Slices Left {{ moon.current_health }}
+            <br>Molded {{ moon.slices_lost }}</span></div>
         <div class="col-6 text-center p-3">
           <img v-if="moon.interval_started == true" src="../assets/img/MoonLG.png" @click="mineMoon()"
             class="moon rounded-circle rotate">
           <img v-else src="../assets/img/MoonLG.png" disabled onclick="window.alert('Click Start button to begin');"
             class="moon rounded-circle">
         </div>
-        <div class="col-3 text-end"><span class="stats">PLAYER<br>Slices {{ player.resources_available }}
+        <div class="col-3 text-end"><span class="moon-text">PLAYER<br>Slices {{ player.resources_available }}
             <br>Time {{ isNaN(Math.floor((player.end_time - player.start_time) /
-              1000)) ? 0 : Math.floor((player.end_time - player.start_time) /
-                1000) }} s</span>
+              1000)) ? 0 : Math.floor((player.end_time - player.start_time) / 1000) }} s
+            <br>Slices/Clk {{ player.extraction_amount_click }}
+            <br>Slices/s {{ player.extraction_amount_passive }}</span>
         </div>
       </div>
     </div>
   </div>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 text-center">
-        <h4 class="pt-3">Mining Tools</h4>
-      </div>
-    </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-2">
       <div class="col-md-3 mx-1 text-center p-1 d-none d-md-block">
         <h6>Click</h6> <span>Additional slices per click</span>
       </div>
@@ -95,20 +92,8 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <h4 class="text-center pt-3">Moon</h4>
-        <p>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}ms
-            (tick)</span>
-          <br>Slices lost to mold: <span class="stats">{{ moon.slices_lost }}</span>
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <h4 class="text-center">Player</h4>
+        <h4 class="text-center pt-3">Player Statistics</h4>
         <p>Slices Spent: <span class="stats">{{ player.resources_spent_on_tools }}</span>
-          <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }} Slices</span>
-          <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} Slices per
-            Second</span>
           <br>Total Moon Clicks: <span class="stats">{{ player.totalClicks }}</span>
         </p>
       </div>
@@ -351,10 +336,14 @@ hr {
 }
 
 .stats {
-  border: none !important;
-  /* background-color: var(--bs-body-bg); */
-  border-radius: 5px;
+  /* border: none !important;
+  background-color: var(--bs-body-bg);
+  border-radius: 5px; */
   color: var(--bs-heading-color);
+}
+
+.moon-text {
+  color: #000000;
 }
 
 .mmBody {
