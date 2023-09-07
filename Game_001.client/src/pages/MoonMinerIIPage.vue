@@ -9,15 +9,18 @@
         <div class="col-3 text-center">
           <button v-if="moon.interval_started != true" class="btn btn-dark"
             @click="startInterval(); moon.interval_started = true; startPlayerInterval();">Start</button>
-          <!-- <button v-else class="btn btn-dark" disabled>Start</button> -->
+          <button v-else class="btn btn-dark" disabled>Start</button>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div class="col-12 text-center p-3">
+      <div class="row justify-content-center header">
+        <div class="col-3">Slices Left <span class="stats">{{ moon.current_health }}</span></div>
+        <div class="col-6 text-center p-3">
           <img v-if="moon.interval_started == true" src="../assets/img/MoonLG.png" @click="mineMoon()"
             class="moon rounded-circle rotate">
           <img v-else src="../assets/img/MoonLG.png" disabled onclick="window.alert('Click Start button to begin');"
             class="moon rounded-circle">
+        </div>
+        <div class="col-3 text-end">Score <span class="stats">{{ player.resources_available }}</span>
         </div>
       </div>
     </div>
@@ -39,58 +42,57 @@
         <h6>Stasis</h6> Slow the molding process
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-4 text-center p-1">
+    <div class="row justify-content-around">
+      <div class="col-12 col-md-4 p-1 order-0 order-md-0">
         <button v-if="player.resources_available >= cheeseSlicer.price && moon.interval_started == true"
-          class="btn btn-danger" @click="buyEquipment(cheeseSlicer)">Cheese Slicer +{{ cheeseSlicer.power }} slice/click
-          (${{ cheeseSlicer.price }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Slicer +{{ cheeseSlicer.power }} slice/click (${{
-          cheeseSlicer.price }})</button>
+          class="btn btn-danger tool-btn" @click="buyEquipment(cheeseSlicer)">Cheese Slicer</button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Slicer</button> +{{ cheeseSlicer.power }} slice/click
+        (${{
+          cheeseSlicer.price }})
       </div>
-      <div class="col-12 col-md-4 text-center p-1">
+      <div class="col-12 col-md-4 p-1 order-2 order-md-1">
+        <hr class="d-md-none p-1">
         <button v-if="player.resources_available >= cheeseStraw.price && moon.interval_started == true"
-          class="btn btn-warning" @click="buyEquipment(cheeseStraw)">Cheese Straw +{{ cheeseStraw.power }} slice/second
-          (${{ cheeseStraw.price }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Straw +{{ cheeseStraw.power }} slice/second (${{
-          cheeseStraw.price }})</button>
+          class="btn btn-warning tool-btn" @click="buyEquipment(cheeseStraw)">Cheese Straw</button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Straw</button> +{{ cheeseStraw.power }} slice/second
+        (${{
+          cheeseStraw.price }})
       </div>
-      <div class="col-12 col-md-4 text-center p-1">
+      <div class="col-12 col-md-4 p-1 order-4 order-md-2">
+        <hr class="d-md-none p-1">
         <button v-if="player.resources_available >= cheeseSpray.price && moon.interval_started == true"
-          class="btn btn-info" @click="buyEquipment(cheeseSpray)">Cheese Spray +{{ cheeseSpray.power }}ms (${{
-            cheeseSpray.price }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Spray + {{ cheeseSpray.power }}ms (${{
-          cheeseSpray.price }})</button>
+          class="btn btn-info tool-btn" @click="buyEquipment(cheeseSpray)">Cheese Spray</button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Spray</button> + {{ cheeseSpray.power }}ms (${{
+          cheeseSpray.price }})
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-4 text-center p-1">
+      <!-- </div>
+    <hr class="d-md-none">
+    <div class="row justify-content-around"> -->
+      <div class="col-12 col-md-4 p-1 order-1 order-md-3">
         <button v-if="player.resources_available >= cheeseKnife.price && moon.interval_started == true"
-          class="btn btn-danger" @click="buyEquipment(cheeseKnife)">Cheese Knife +{{ cheeseKnife.power }} slice/click (${{
-            cheeseKnife.price
-          }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Knife +{{ cheeseKnife.power }} slice/click (${{
-          cheeseKnife.price }})</button>
+          class="btn btn-danger tool-btn" @click="buyEquipment(cheeseKnife)">Cheese Knife</button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Knife</button> +{{ cheeseKnife.power }} slice/click
+        (${{
+          cheeseKnife.price }})
       </div>
-      <div class="col-12 col-md-4 text-center p-1">
+      <div class="col-12 col-md-4 p-1 order-3 order-md-4">
         <button v-if="player.resources_available >= cheeseVacuum.price && moon.interval_started == true"
-          class="btn btn-warning" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum +{{ cheeseVacuum.power }} slice/second
-          (${{ cheeseVacuum.price }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Vacuum +{{ cheeseVacuum.power }} slice/second (${{
-          cheeseVacuum.price }})</button>
+          class="btn btn-warning tool-btn" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum</button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Vacuum</button> +{{ cheeseVacuum.power }}
+        slice/second (${{
+          cheeseVacuum.price }})
       </div>
-      <div class="col-12 col-md-4 text-center p-1">
-        <button v-if="player.resources_available >= cheeseOil.price && moon.interval_started == true" class="btn btn-info"
-          @click="buyEquipment(cheeseOil)">Cheese Oil +{{ cheeseOil.power }}ms (${{ cheeseOil.price }})</button>
-        <button v-else class="btn btn-dark disabled">Cheese Oil + {{ cheeseOil.power }}ms (${{
-          cheeseOil.price }})</button>
+      <div class="col-12 col-md-4 p-1 order-5 order-md-5">
+        <button v-if="player.resources_available >= cheeseOil.price && moon.interval_started == true"
+          class="btn btn-info tool-btn" @click="buyEquipment(cheeseOil)">Cheese Oil</button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Oil</button> + {{ cheeseOil.power }}ms (${{
+          cheeseOil.price }})
       </div>
     </div>
     <div class="row">
       <div class="col-12">
         <h4 class="text-center pt-3">Moon</h4>
-        <p>Starting Slices: <span class="stats">{{ moon.max_health }}</span>
-          <br>Slices Left: <span class="stats">{{ moon.current_health }}</span>
-          <br>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}ms
+        <p>Mold Rate: <span class="stats">{{ moon.deteriorationAmount }} Slice(s) / {{ moon.deteriorationRate }}ms
             (tick)</span>
           <br>Slices lost to mold: <span class="stats">{{ moon.slices_lost }}</span>
         </p>
@@ -99,8 +101,7 @@
     <div class="row">
       <div class="col-12">
         <h4 class="text-center">Player</h4>
-        <p>Slices Available: <span class="stats">{{ player.resources_available }}</span>
-          <br>Slices Extracted: <span class="stats">{{ player.resources_extracted }}</span>
+        <p>Slices Extracted: <span class="stats">{{ player.resources_extracted }}</span>
           <br>Slices Spent: <span class="stats">{{ player.resources_spent_on_tools }}</span>
           <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }} Slices</span>
           <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} Slices per
@@ -340,9 +341,15 @@ export default {
 </script>
 
 <style>
+hr {
+  color: var(--bs-danger);
+  width: 85%;
+  margin: auto;
+}
+
 .stats {
   border: none !important;
-  background-color: var(--bs-body-bg);
+  /* background-color: var(--bs-body-bg); */
   border-radius: 5px;
   color: var(--bs-heading-color);
 }
@@ -375,7 +382,7 @@ export default {
 
 /* To rotate the moon */
 .rotate {
-  animation: rotation 8s infinite linear;
+  animation: rotation 16s infinite linear;
 }
 
 @keyframes rotation {
@@ -386,5 +393,9 @@ export default {
   to {
     transform: rotate(359deg);
   }
+}
+
+.tool-btn {
+  width: 140px;
 }
 </style>
