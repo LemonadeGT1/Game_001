@@ -13,14 +13,17 @@
         </div>
       </div>
       <div class="row justify-content-center header">
-        <div class="col-3">Slices Left <span class="stats">{{ moon.current_health }}</span></div>
+        <div class="col-3"><span class="stats">MOON<br>Slices Left {{ moon.current_health }}</span></div>
         <div class="col-6 text-center p-3">
           <img v-if="moon.interval_started == true" src="../assets/img/MoonLG.png" @click="mineMoon()"
             class="moon rounded-circle rotate">
           <img v-else src="../assets/img/MoonLG.png" disabled onclick="window.alert('Click Start button to begin');"
             class="moon rounded-circle">
         </div>
-        <div class="col-3 text-end">Score <span class="stats">{{ player.resources_available }}</span>
+        <div class="col-3 text-end"><span class="stats">PLAYER<br>Slices {{ player.resources_available }}
+            <br>Time {{ isNaN(Math.floor((player.end_time - player.start_time) /
+              1000)) ? 0 : Math.floor((player.end_time - player.start_time) /
+                1000) }} s</span>
         </div>
       </div>
     </div>
@@ -28,37 +31,38 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 text-center">
-        <h4 class="text-dark pt-3">Mining Tools</h4>
+        <h4 class="pt-3">Mining Tools</h4>
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-md-4 text-center p-1 d-none d-md-block">
-        <h6>Click</h6> Additional slices per click
+      <div class="col-md-3 mx-1 text-center p-1 d-none d-md-block">
+        <h6>Click</h6> <span>Additional slices per click</span>
       </div>
-      <div class="col-md-4 text-center p-1 d-none d-md-block">
-        <h6>Passive</h6> Gain slices without clicking
+      <div class="col-md-3 mx-1 text-center p-1 d-none d-md-block">
+        <h6>Passive</h6> <span>Gain slices without clicking</span>
       </div>
-      <div class="col-md-4 text-center p-1 d-none d-md-block">
-        <h6>Stasis</h6> Slow the molding process
+      <div class="col-md-3 mx-1 text-center p-1 d-none d-md-block">
+        <h6>Stasis</h6> <span>Slow the molding process</span>
       </div>
     </div>
-    <div class="row justify-content-around">
-      <div class="col-12 col-md-4 p-1 order-0 order-md-0">
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-3 mx-1 p-1 order-0 order-md-0">
         <button v-if="player.resources_available >= cheeseSlicer.price && moon.interval_started == true"
           class="btn btn-danger tool-btn" @click="buyEquipment(cheeseSlicer)">Cheese Slicer</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Slicer</button> +{{ cheeseSlicer.power }} slice/click
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Slicer</button> + {{ cheeseSlicer.power }}
+        slice/click
         (${{
           cheeseSlicer.price }})
       </div>
-      <div class="col-12 col-md-4 p-1 order-2 order-md-1">
+      <div class="col-10 col-md-3 mx-1 p-1 order-2 order-md-1">
         <hr class="d-md-none p-1">
         <button v-if="player.resources_available >= cheeseStraw.price && moon.interval_started == true"
           class="btn btn-warning tool-btn" @click="buyEquipment(cheeseStraw)">Cheese Straw</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Straw</button> +{{ cheeseStraw.power }} slice/second
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Straw</button> + {{ cheeseStraw.power }} slice/second
         (${{
           cheeseStraw.price }})
       </div>
-      <div class="col-12 col-md-4 p-1 order-4 order-md-2">
+      <div class="col-10 col-md-3 mx-1 p-1 order-4 order-md-2">
         <hr class="d-md-none p-1">
         <button v-if="player.resources_available >= cheeseSpray.price && moon.interval_started == true"
           class="btn btn-info tool-btn" @click="buyEquipment(cheeseSpray)">Cheese Spray</button>
@@ -68,21 +72,21 @@
       <!-- </div>
     <hr class="d-md-none">
     <div class="row justify-content-around"> -->
-      <div class="col-12 col-md-4 p-1 order-1 order-md-3">
+      <div class="col-10 col-md-3 mx-1 p-1 order-1 order-md-3">
         <button v-if="player.resources_available >= cheeseKnife.price && moon.interval_started == true"
           class="btn btn-danger tool-btn" @click="buyEquipment(cheeseKnife)">Cheese Knife</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Knife</button> +{{ cheeseKnife.power }} slice/click
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Knife</button> + {{ cheeseKnife.power }} slice/click
         (${{
           cheeseKnife.price }})
       </div>
-      <div class="col-12 col-md-4 p-1 order-3 order-md-4">
+      <div class="col-10 col-md-3 mx-1 p-1 order-3 order-md-4">
         <button v-if="player.resources_available >= cheeseVacuum.price && moon.interval_started == true"
           class="btn btn-warning tool-btn" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Vacuum</button> +{{ cheeseVacuum.power }}
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Vacuum</button> + {{ cheeseVacuum.power }}
         slice/second (${{
           cheeseVacuum.price }})
       </div>
-      <div class="col-12 col-md-4 p-1 order-5 order-md-5">
+      <div class="col-10 col-md-3 mx-1 p-1 order-5 order-md-5">
         <button v-if="player.resources_available >= cheeseOil.price && moon.interval_started == true"
           class="btn btn-info tool-btn" @click="buyEquipment(cheeseOil)">Cheese Oil</button>
         <button v-else class="btn btn-dark disabled tool-btn">Cheese Oil</button> + {{ cheeseOil.power }}ms (${{
@@ -101,13 +105,11 @@
     <div class="row">
       <div class="col-12">
         <h4 class="text-center">Player</h4>
-        <p>Slices Extracted: <span class="stats">{{ player.resources_extracted }}</span>
-          <br>Slices Spent: <span class="stats">{{ player.resources_spent_on_tools }}</span>
+        <p>Slices Spent: <span class="stats">{{ player.resources_spent_on_tools }}</span>
           <br>Extraction Amount (per click): <span class="stats">{{ player.extraction_amount_click }} Slices</span>
           <br>Extraction Amount (passive): <span class="stats">{{ player.extraction_amount_passive }} Slices per
             Second</span>
           <br>Total Moon Clicks: <span class="stats">{{ player.totalClicks }}</span>
-          <br>Elapsed Time: <span class="stats">{{ player.elapsed_time }} seconds</span>
         </p>
       </div>
     </div>
@@ -165,6 +167,7 @@ export default {
 
     function drawStats() {
       checkEndGame()
+      AppState.player.end_time = Date.now()
     }
 
     return {
@@ -372,7 +375,8 @@ hr {
 .moon {
   cursor: url("../assets/img/pickaxe2.svg"), auto;
   filter: drop-shadow(1px 1px 5px #000000);
-  height: 150px;
+  /* height: 150px; */
+  max-height: 15vh;
 }
 
 .header {
@@ -397,5 +401,6 @@ hr {
 
 .tool-btn {
   width: 140px;
+  padding: 0px 0px 0px 0px;
 }
 </style>
