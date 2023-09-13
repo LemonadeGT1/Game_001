@@ -108,6 +108,7 @@ import Pop from "../utils/Pop.js";
 
 export default {
   setup() {
+
     AppState.moon = {
       interval_started: false,
       max_health: 5000,
