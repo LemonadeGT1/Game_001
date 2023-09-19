@@ -27,6 +27,11 @@ const routes = [
     component: loadPage('MoonMinerIIPage')
   },
   {
+    path: '/shadydell',
+    name: 'ShadyDell',
+    component: loadPage('ShadyDellPage')
+  },
+  {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),

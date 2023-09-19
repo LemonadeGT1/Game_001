@@ -6,8 +6,11 @@
       </div>
       <div class="col-sm-3 col-12 text-center"><img src="../assets/img/Shady Dell-logos_black.png" alt="Shady Dell Logo"
           class="rounded-circle p-1 gameLogo"></div>
-      <div class="col-sm-3 col-12 text-center"><img src="../assets/img/Shady Dell-logos.jpeg" alt="Shady Dell Logo"
-          class="rounded-circle p-1 gameLogo"></div>
+      <div class="col-sm-3 col-12 text-center">
+        <router-link :to="{ name: 'ShadyDell' }" class="btn text-light selectable text-uppercase"><img
+            src="../assets/img/Shady Dell-logos.jpeg" alt="Shady Dell Logo"
+            class="rounded-circle p-1 gameLogo"></router-link>
+      </div>
       <div class="col-sm-3 col-12 text-center">
         <router-link :to="{ name: 'MoonMinerII' }" class="btn text-light selectable text-uppercase">
           <img src="../assets/img/MoonMinerLogo_001.png" alt="Moon Miner II Logo" class="rounded-circle p-1 gameLogo">
