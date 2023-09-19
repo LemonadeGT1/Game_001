@@ -36,15 +36,15 @@ export default {
 }
 
 .treeBlur {
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(0px);
+}
+
+.tree {
+  height: 200px;
 }
 
 .groundBG {
   background-color: var(--bs-dark);
   color: var(--bs-light)
-}
-
-.tree {
-  height: 200px;
 }
 </style>
