@@ -43,51 +43,63 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-10 col-md-3 mx-1 p-1 order-0 order-md-0">
+      <div class="col-12 col-md-3 mx-1 p-1 order-0 order-md-0">
         <button v-if="player.resources_available >= cheeseSlicer.price && moon.interval_started == true"
-          class="btn btn-danger tool-btn" @click="buyEquipment(cheeseSlicer)">Cheese Slicer</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Slicer</button> + {{ cheeseSlicer.power }}
-        slice/click
-        (${{
-          cheeseSlicer.price }})
+          class="btn btn-danger tool-btn" @click="buyEquipment(cheeseSlicer)">Cheese Slicer
+          <span class="tiny">${{ cheeseSlicer.price }}</span></button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Slicer
+          <span class="tiny">${{ cheeseSlicer.price }}</span></button> + {{
+            cheeseSlicer.power }}
+        <span class="tiny">slice/second</span>
+        | <span class="tiny">Owned</span> [{{ cheeseSlicer.quantityOwned }}]
       </div>
-      <div class="col-10 col-md-3 mx-1 p-1 order-2 order-md-1">
+      <div class="col-12 col-md-3 mx-1 p-1 order-2 order-md-1">
         <hr class="d-md-none p-1">
         <button v-if="player.resources_available >= cheeseStraw.price && moon.interval_started == true"
-          class="btn btn-warning tool-btn" @click="buyEquipment(cheeseStraw)">Cheese Straw</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Straw</button> + {{ cheeseStraw.power }} slice/second
-        (${{
-          cheeseStraw.price }})
+          class="btn btn-warning tool-btn" @click="buyEquipment(cheeseStraw)">Cheese Straw
+          <span class="tiny">${{ cheeseStraw.price }}</span></button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Straw
+          <span class="tiny">${{ cheeseStraw.price }}</span></button> + {{ cheeseStraw.power }}
+        <span class="tiny">slice/second</span>
+        | <span class="tiny">Owned</span> [{{ cheeseStraw.quantityOwned }}]
       </div>
-      <div class="col-10 col-md-3 mx-1 p-1 order-4 order-md-2">
+      <div class="col-12 col-md-3 mx-1 p-1 order-4 order-md-2">
         <hr class="d-md-none p-1">
         <button v-if="player.resources_available >= cheeseSpray.price && moon.interval_started == true"
-          class="btn btn-info tool-btn" @click="buyEquipment(cheeseSpray)">Cheese Spray</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Spray</button> + {{ cheeseSpray.power }}ms (${{
-          cheeseSpray.price }})
+          class="btn btn-info tool-btn" @click="buyEquipment(cheeseSpray)">Cheese Spray
+          <span class="tiny">${{ cheeseSpray.price }}</span></button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Spray
+          <span class="tiny">${{ cheeseSpray.price }}</span></button> + {{ cheeseSpray.power }}ms
+        | <span class="tiny">Owned</span> [{{ cheeseSpray.quantityOwned }}]
       </div>
       <!-- </div>
     <hr class="d-md-none">
     <div class="row justify-content-around"> -->
-      <div class="col-10 col-md-3 mx-1 p-1 order-1 order-md-3">
+      <div class="col-12 col-md-3 mx-1 p-1 order-1 order-md-3">
         <button v-if="player.resources_available >= cheeseKnife.price && moon.interval_started == true"
-          class="btn btn-danger tool-btn" @click="buyEquipment(cheeseKnife)">Cheese Knife</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Knife</button> + {{ cheeseKnife.power }} slice/click
-        (${{
-          cheeseKnife.price }})
+          class="btn btn-danger tool-btn" @click="buyEquipment(cheeseKnife)">Cheese Knife
+          <span class="tiny">${{ cheeseKnife.price }}</span></button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Knife
+          <span class="tiny">${{ cheeseKnife.price }}</span></button> + {{ cheeseKnife.power }}
+        <span class="tiny">slice/click</span>
+        | <span class="tiny">Owned</span> [{{ cheeseKnife.quantityOwned }}]
       </div>
-      <div class="col-10 col-md-3 mx-1 p-1 order-3 order-md-4">
+      <div class="col-12 col-md-3 mx-1 p-1 order-3 order-md-4">
         <button v-if="player.resources_available >= cheeseVacuum.price && moon.interval_started == true"
-          class="btn btn-warning tool-btn" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Vacuum</button> + {{ cheeseVacuum.power }}
-        slice/second (${{
-          cheeseVacuum.price }})
+          class="btn btn-warning tool-btn" @click="buyEquipment(cheeseVacuum)">Cheese Vacuum
+          <span class="tiny">${{ cheeseVacuum.price }}</span></button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Vacuum
+          <span class="tiny">${{ cheeseVacuum.price }}</span></button> + {{ cheeseVacuum.power }}
+        <span class="tiny">slice/second</span>
+        | <span class="tiny">Owned</span> [{{ cheeseVacuum.quantityOwned }}]
       </div>
-      <div class="col-10 col-md-3 mx-1 p-1 order-5 order-md-5">
+      <div class="col-12 col-md-3 mx-1 p-1 order-5 order-md-5">
         <button v-if="player.resources_available >= cheeseOil.price && moon.interval_started == true"
-          class="btn btn-info tool-btn" @click="buyEquipment(cheeseOil)">Cheese Oil</button>
-        <button v-else class="btn btn-dark disabled tool-btn">Cheese Oil</button> + {{ cheeseOil.power }}ms (${{
-          cheeseOil.price }})
+          class="btn btn-info tool-btn" @click="buyEquipment(cheeseOil)">Cheese Oil
+          <span class="tiny">${{ cheeseOil.price }}</span></button>
+        <button v-else class="btn btn-dark disabled tool-btn">Cheese Oil
+          <span class="tiny">${{ cheeseOil.price }}</span></button> + {{ cheeseOil.power }}ms
+        | <span class="tiny">Owned</span> [{{ cheeseOil.quantityOwned }}]
       </div>
     </div>
     <div class="row">
@@ -171,8 +183,8 @@ export default {
         price: 50,
         priceID: 'addCheeseSlicerPrice',
         priceIncrementor: 10,
-        start_quantityOwned: 0,
-        quantityOwned: 0,
+        start_quantityOwned: 1,
+        quantityOwned: 1,
         quantityOwnedID: 'plusCheeseSlicers',
         toolButtonID: 'addCheeseSlicer',
         totalFromToolID: 'plusCheeseSlicerTotal'
@@ -201,6 +213,7 @@ export default {
         price: 25,
         priceID: 'addCheeseStrawPrice',
         priceIncrementor: 3,
+        start_quantityOwned: 0,
         quantityOwned: 0,
         quantityOwnedID: 'plusCheeseStraws',
         toolButtonID: 'addCheeseStraw',
@@ -215,6 +228,7 @@ export default {
         price: 200,
         priceID: 'addCheeseVacuumPrice',
         priceIncrementor: 15,
+        start_quantityOwned: 0,
         quantityOwned: 0,
         quantityOwnedID: 'plusCheeseVacuums',
         toolButtonID: 'addCheeseVacuum',
@@ -228,6 +242,7 @@ export default {
         start_price: 100,
         price: 100,
         priceIncrementor: 20,
+        start_quantityOwned: 0,
         quantityOwned: 0
       },
 
@@ -238,6 +253,7 @@ export default {
         start_price: 300,
         price: 300,
         priceIncrementor: 30,
+        start_quantityOwned: 0,
         quantityOwned: 0
       },
 
@@ -285,12 +301,20 @@ export default {
         AppState.player.totalClicks = 0
         AppState.player.start_time = Date.now()
         // Tools
+        // Reset tool price
         this.cheeseSlicer.price = this.cheeseSlicer.start_price
         this.cheeseKnife.price = this.cheeseKnife.start_price
         this.cheeseStraw.price = this.cheeseStraw.start_price
         this.cheeseVacuum.price = this.cheeseVacuum.start_price
         this.cheeseSpray.price = this.cheeseSpray.start_price
         this.cheeseOil.price = this.cheeseOil.start_price
+        // Reset tool count
+        this.cheeseSlicer.quantityOwned = this.cheeseSlicer.start_quantityOwned
+        this.cheeseKnife.quantityOwned = this.cheeseKnife.start_quantityOwned
+        this.cheeseStraw.quantityOwned = this.cheeseStraw.start_quantityOwned
+        this.cheeseVacuum.quantityOwned = this.cheeseVacuum.start_quantityOwned
+        this.cheeseSpray.quantityOwned = this.cheeseSpray.start_quantityOwned
+        this.cheeseOil.quantityOwned = this.cheeseOil.start_quantityOwned
       },
 
       mineMoon() {
@@ -391,7 +415,11 @@ hr {
 }
 
 .tool-btn {
-  width: 140px;
+  width: 160px;
   padding: 0px 0px 0px 0px;
+}
+
+.tiny {
+  font-size: .8em;
 }
 </style>
