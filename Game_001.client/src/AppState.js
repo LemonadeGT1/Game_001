@@ -9,5 +9,8 @@ export const AppState = reactive({
   // Moon Miner II
   moon: {},
   player: {},
-  tools: {}
+  tools: {},
+
+  // Shady Dell
+  sdGameStats: {}
 })
