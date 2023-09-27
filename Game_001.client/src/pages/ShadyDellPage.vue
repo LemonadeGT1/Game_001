@@ -37,17 +37,18 @@ export default {
       clickStart() {
         this.startInterval()
         this.sdGameStats.gameState = 'Running'
-        // if (AppState.sdGameStats.gameState === "Running") {
-        //   AppState.sdGameStats.gameState = "Paused"
-        //   this.stopInterval()
-        // } else {
-        //   AppState.sdGameStats.gameState = "Running"
-        //   this.startInterval()
-        // }
       },
 
       treeClick() {
         console.log('Tree Clicked')
+        // SECTION - Example of how to change game state - this one toggles between running and paused
+        // if (AppState.sdGameStats.gameState === "Running") {
+        //   AppState.sdGameStats.gameState = "Paused"
+        //   // this.stopInterval()
+        // } else {
+        //   AppState.sdGameStats.gameState = "Running"
+        //   // this.startInterval()
+        // }
       },
 
       // SECTION - This is the main game loop
@@ -61,6 +62,11 @@ export default {
           else if (AppState.sdGameStats.gameState === "Paused") {
             console.log("Game Paused ...")
             // What can go on while the game is paused? Just a Pop Confirm?
+            // Do not do regular game increments
+          }
+          else if (AppState.sdGameStats.gameState === "Start") {
+            console.log("Game Start ...")
+            // Push the Start button
           }
           else {
             console.log("AppState.sdGameStats.gameState: ", AppState.sdGameStats.gameState)
