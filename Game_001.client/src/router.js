@@ -32,6 +32,11 @@ const routes = [
     component: loadPage('ShadyDellPage')
   },
   {
+    path: '/conwaysgameoflife',
+    name: 'ConwaysGameOfLife',
+    component: loadPage('ConwaysGameOfLifePage')
+  },
+  {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),
