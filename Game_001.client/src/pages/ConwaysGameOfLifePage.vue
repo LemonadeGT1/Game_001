@@ -63,10 +63,6 @@ export default {
       }
     }
 
-    function init() {
-      console.log('init()')
-    }
-
     // Initialize
     function initialize() {
       createTable();
@@ -80,7 +76,7 @@ export default {
       let gridContainer = document.getElementById('gridContainer');
       if (!gridContainer) {
         // Throw error
-        console.error("Problem: No div for the grid table!");
+        console.error("Problem: No div for the drid table!");
       }
       let table = document.createElement("table");
 
@@ -92,6 +88,7 @@ export default {
           cell.setAttribute("class", "dead");
           cell.onclick = cellClickHandler;
           tr.appendChild(cell);
+          cell.innerText = 0;
         }
         table.appendChild(tr);
       }
@@ -176,7 +173,7 @@ export default {
       for (let i = 0; i < cells.length; i++) {
         cells[i].setAttribute("class", "dead");
       }
-      resetGrids();
+      resetGrids;
     }
 
     // start/pause/continue the game
@@ -221,6 +218,17 @@ export default {
     // Any live cell with two or three live neighbours lives on to the next generation.
     // Any live cell with more than three live neighbours dies, as if by overcrowding.
     // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+
+    // SECTION - NEW RULES - Still based on number of live neighbors
+    // Cells age so they may stay 'alive' beyond a single tick
+    // 0 = dead; 1-8 = alive
+    // 1. Any live cell with fewer than two live neighbors looses 1 life
+    // 2. Any live cell with two or three live neighbors gains 1 life (continues to live)
+    // 2.1 Any dead cell with exactly three live neighbors becomes a live cell (Covered by rule 2)
+    // 3. Any live cell with more than three live neighbors looses 1 life
+    // 4. Any cell with 8 life, if give more, will die (set to 0)
+    // 
+    // FIXME - functions applyRules and countNeighbors must be updated to reflect these rules
 
     function applyRules(row, col) {
       let numNeighbors = countNeighbors(row, col);
@@ -269,12 +277,11 @@ export default {
     }
 
     // Start everything
-    // window.onload = initialize;
-
     onMounted(() => { initialize() });
 
     // 
-    // 
+    // SECTION - End
+
     return {};
   },
 };
@@ -286,19 +293,18 @@ export default {
 }
 
 table {
-  /* background-color: var(--bs-dark); */
   border-spacing: 0;
-  border: solid 1px #ceb8b7;
+  /* border: solid 1px #ceb8b7; */
 }
 
 td {
-  /* border: 1px solid var(--bs-body-bg); */
-  /* border-radius: 3px; */
-  width: 10px;
-  height: 10px;
+  cursor: crosshair;
+  width: 15px;
+  height: 15px;
   border: solid 1px #ceb8b7;
-  margin-bottom: 1px;
-  margin-right: 1px;
+  box-shadow: 1px 1px 1px #aa9493;
+  font-size: .5em;
+  text-align: center;
 }
 
 td.dead {
@@ -308,6 +314,45 @@ td.dead {
 td.live {
   background-color: var(--bs-danger);
   border-radius: 20px;
-  padding: 1px 1px 1px 1px;
+}
+
+td.live1 {
+  background-color: purple;
+  border-radius: 20px;
+}
+
+td.live2 {
+  background-color: cornflowerblue;
+  border-radius: 20px;
+}
+
+td.live3 {
+  background-color: blue;
+  border-radius: 20px;
+}
+
+td.live4 {
+  background-color: green;
+  border-radius: 20px;
+}
+
+td.live5 {
+  background-color: yellow;
+  border-radius: 20px;
+}
+
+td.live6 {
+  background-color: orange;
+  border-radius: 20px;
+}
+
+td.live7 {
+  background-color: red;
+  border-radius: 20px;
+}
+
+td.live8 {
+  background-color: black;
+  border-radius: 20px;
 }
 </style>
