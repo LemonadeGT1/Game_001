@@ -108,7 +108,7 @@ export default {
         this.setAttribute("class", "live");
         grid[row][col] = 1;
       }
-
+      updateView();
     }
 
     function updateView() {
@@ -117,8 +117,10 @@ export default {
           let cell = document.getElementById(i + "_" + j);
           if (grid[i][j] == 0) {
             cell.setAttribute("class", "dead");
+            cell.innerText = 0;
           } else {
             cell.setAttribute("class", "live");
+            cell.innerText = 1;
           }
         }
       }
