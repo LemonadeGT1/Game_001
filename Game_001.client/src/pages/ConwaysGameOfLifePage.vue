@@ -36,7 +36,7 @@ export default {
     let nextGrid = new Array(gridRows);
 
     let timer;
-    const reproductionTime = 100;
+    const reproductionTime = 500;
 
     function initializeGrids() {
       for (let i = 0; i < gridRows; i++) {
@@ -76,7 +76,7 @@ export default {
       let gridContainer = document.getElementById('gridContainer');
       if (!gridContainer) {
         // Throw error
-        console.error("Problem: No div for the drid table!");
+        console.error("Problem: No div for the grid table!");
       }
       let table = document.createElement("table");
 
@@ -104,6 +104,30 @@ export default {
       if (classes.indexOf("live") > -1) {
         this.setAttribute("class", "dead");
         grid[row][col] = 0;
+      } else if (classes.indexOf("live1") > -1) {
+        this.setAttribute("class", "live1");
+        grid[row][col] = 1;
+      } else if (classes.indexOf("live2") > -1) {
+        this.setAttribute("class", "live2");
+        grid[row][col] = 2;
+      } else if (classes.indexOf("live3") > -1) {
+        this.setAttribute("class", "live3");
+        grid[row][col] = 3;
+      } else if (classes.indexOf("live4") > -1) {
+        this.setAttribute("class", "live4");
+        grid[row][col] = 4;
+      } else if (classes.indexOf("live5") > -1) {
+        this.setAttribute("class", "live5");
+        grid[row][col] = 5;
+      } else if (classes.indexOf("live6") > -1) {
+        this.setAttribute("class", "live6");
+        grid[row][col] = 6;
+      } else if (classes.indexOf("live7") > -1) {
+        this.setAttribute("class", "live7");
+        grid[row][col] = 7;
+      } else if (classes.indexOf("live8") > -1) {
+        this.setAttribute("class", "live8");
+        grid[row][col] = 8;
       } else {
         this.setAttribute("class", "live");
         grid[row][col] = 1;
@@ -118,7 +142,32 @@ export default {
           if (grid[i][j] == 0) {
             cell.setAttribute("class", "dead");
             cell.innerText = 0;
-          } else {
+          } else if (grid[i][j] == 1) {
+            cell.setAttribute("class", "live1");
+            cell.innerText = 1;
+          } else if (grid[i][j] == 2) {
+            cell.setAttribute("class", "live2");
+            cell.innerText = 2;
+          } else if (grid[i][j] == 3) {
+            cell.setAttribute("class", "live3");
+            cell.innerText = 3;
+          } else if (grid[i][j] == 4) {
+            cell.setAttribute("class", "live4");
+            cell.innerText = 4;
+          } else if (grid[i][j] == 5) {
+            cell.setAttribute("class", "live5");
+            cell.innerText = 5;
+          } else if (grid[i][j] == 6) {
+            cell.setAttribute("class", "live6");
+            cell.innerText = 6;
+          } else if (grid[i][j] == 7) {
+            cell.setAttribute("class", "live7");
+            cell.innerText = 7;
+          } else if (grid[i][j] == 8) {
+            cell.setAttribute("class", "live8");
+            cell.innerText = 8;
+          }
+          else {
             cell.setAttribute("class", "live");
             cell.innerText = 1;
           }
@@ -231,10 +280,27 @@ export default {
     // 4. Any cell with 8 life, if give more, will die (set to 0)
     // 
     // FIXME - functions applyRules and countNeighbors must be updated to reflect these rules
+    // 
+    // function applyRules(row, col) {
+    //   let numNeighbors = countNeighbors(row, col);
+    //   if (grid[row][col] == 1) {
+    //     if (numNeighbors < 2) {
+    //       nextGrid[row][col] = 0;
+    //     } else if (numNeighbors == 2 || numNeighbors == 3) {
+    //       nextGrid[row][col] = 1;
+    //     } else if (numNeighbors > 3) {
+    //       nextGrid[row][col] = 0;
+    //     }
+    //   } else if (grid[row][col] == 0) {
+    //     if (numNeighbors == 3) {
+    //       nextGrid[row][col] = 1;
+    //     }
+    //   }
+    // }
 
     function applyRules(row, col) {
       let numNeighbors = countNeighbors(row, col);
-      if (grid[row][col] == 1) {
+      if (grid[row][col] >= 1) {
         if (numNeighbors < 2) {
           nextGrid[row][col] = 0;
         } else if (numNeighbors == 2 || numNeighbors == 3) {
@@ -247,10 +313,12 @@ export default {
           nextGrid[row][col] = 1;
         }
       }
+      // console.log('grid[', row, '][', col, '] ', grid[row][col], '\n nextGrid', nextGrid[row][col], '\n numNeighbors ', numNeighbors)
     }
 
     function countNeighbors(row, col) {
       let count = 0;
+      let cell = document.getElementById(row + "_" + col)
       if (row - 1 >= 0) {
         if (grid[row - 1][col] == 1) count++;
       }
@@ -274,6 +342,11 @@ export default {
       }
       if (row + 1 < gridRows && col + 1 < gridCols) {
         if (grid[row + 1][col + 1] == 1) count++;
+      }
+
+      if (grid[row][col] != 1) {
+        // console.log(`grid[${row}][${col}] ${grid[row][col]},\n count: ${count}`)
+        cell.innerText = count;
       }
       return count;
     }
@@ -319,42 +392,34 @@ td.live {
 }
 
 td.live1 {
-  background-color: purple;
-  border-radius: 20px;
+  background-color: #eeee00;
 }
 
 td.live2 {
-  background-color: cornflowerblue;
-  border-radius: 20px;
+  background-color: #cccc22;
 }
 
 td.live3 {
-  background-color: blue;
-  border-radius: 20px;
+  background-color: #aaaa44;
 }
 
 td.live4 {
-  background-color: green;
-  border-radius: 20px;
+  background-color: #888866;
 }
 
 td.live5 {
-  background-color: yellow;
-  border-radius: 20px;
+  background-color: #666688;
 }
 
 td.live6 {
-  background-color: orange;
-  border-radius: 20px;
+  background-color: #4444aa;
 }
 
 td.live7 {
-  background-color: red;
-  border-radius: 20px;
+  background-color: #2222cc;
 }
 
 td.live8 {
-  background-color: black;
-  border-radius: 20px;
+  background-color: #0000ee;
 }
 </style>
