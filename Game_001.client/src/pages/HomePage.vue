@@ -7,7 +7,8 @@
       <div class="col-sm-3 col-12 text-center">
 
         <router-link :to="{ name: 'ConwaysGameOfLife' }" class="btn text-light selectable text-uppercase">
-          <img src="../assets/img/Shady Dell-logos_black.png" alt="Shady Dell Logo" class="rounded-circle p-1 gameLogo">
+          <img src="../assets/img/ConwaysGameOfLife.svg" alt="Mike's Conway's Game Of Life"
+            class="rounded-circle p-1 gameLogo">
         </router-link>
       </div>
       <div class="col-sm-3 col-12 text-center">
