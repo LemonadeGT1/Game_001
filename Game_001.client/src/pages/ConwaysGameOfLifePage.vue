@@ -36,7 +36,7 @@ export default {
     let nextGrid = new Array(gridRows);
 
     let timer;
-    const reproductionTime = 500;
+    const reproductionTime = 100;
 
     function initializeGrids() {
       for (let i = 0; i < gridRows; i++) {
@@ -430,34 +430,42 @@ td.live {
 
 td.live1 {
   background-color: #FF000011;
+  border-radius: 20px;
 }
 
 td.live2 {
   background-color: #FF000033;
+  border-radius: 20px;
 }
 
 td.live3 {
   background-color: #FF000055;
+  border-radius: 20px;
 }
 
 td.live4 {
   background-color: #FF000077;
+  border-radius: 20px;
 }
 
 td.live5 {
   background-color: #FF000099;
+  border-radius: 20px;
 }
 
 td.live6 {
   background-color: #FF0000BB;
+  border-radius: 20px;
 }
 
 td.live7 {
   background-color: #FF0000DD;
+  border-radius: 20px;
 }
 
 td.live8 {
   background-color: #FF0000FF;
+  border-radius: 20px;
 }
 
 
