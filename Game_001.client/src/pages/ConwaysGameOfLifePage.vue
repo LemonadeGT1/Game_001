@@ -162,27 +162,49 @@ export default {
           // } else if (grid[i][j] == 8) {
           //   cell.setAttribute("class", "live8");
           // }
-          if (cell.innerText == 0) {
-            cell.setAttribute("class", "dead");
-          } else if (cell.innerText == 1) {
-            cell.setAttribute("class", "live1");
-          } else if (cell.innerText == 2) {
-            cell.setAttribute("class", "live2");
-          } else if (cell.innerText == 3) {
-            cell.setAttribute("class", "live3");
-          } else if (cell.innerText == 4) {
-            cell.setAttribute("class", "live4");
-          } else if (cell.innerText == 5) {
-            cell.setAttribute("class", "live5");
-          } else if (cell.innerText == 6) {
-            cell.setAttribute("class", "live6");
-          } else if (cell.innerText == 7) {
-            cell.setAttribute("class", "live7");
-          } else if (cell.innerText == 8) {
-            cell.setAttribute("class", "live8");
-          }
-          else {
-            cell.setAttribute("class", "live");
+          if (grid[i][j] == 1) {
+            if (cell.innerText == 0) {
+              cell.setAttribute("class", "dead");
+            } else if (cell.innerText == 1) {
+              cell.setAttribute("class", "live1");
+            } else if (cell.innerText == 2) {
+              cell.setAttribute("class", "live2");
+            } else if (cell.innerText == 3) {
+              cell.setAttribute("class", "live3");
+            } else if (cell.innerText == 4) {
+              cell.setAttribute("class", "live4");
+            } else if (cell.innerText == 5) {
+              cell.setAttribute("class", "live5");
+            } else if (cell.innerText == 6) {
+              cell.setAttribute("class", "live6");
+            } else if (cell.innerText == 7) {
+              cell.setAttribute("class", "live7");
+            } else if (cell.innerText == 8) {
+              cell.setAttribute("class", "live8");
+            }
+            else {
+              cell.setAttribute("class", "live");
+            }
+          } else if (grid[i][j] == 0) {
+            if (cell.innerText == 0) {
+              cell.setAttribute("class", "dead");
+            } else if (cell.innerText == 1) {
+              cell.setAttribute("class", "dead1");
+            } else if (cell.innerText == 2) {
+              cell.setAttribute("class", "dead2");
+            } else if (cell.innerText == 3) {
+              cell.setAttribute("class", "dead3");
+            } else if (cell.innerText == 4) {
+              cell.setAttribute("class", "dead4");
+            } else if (cell.innerText == 5) {
+              cell.setAttribute("class", "dead5");
+            } else if (cell.innerText == 6) {
+              cell.setAttribute("class", "dead6");
+            } else if (cell.innerText == 7) {
+              cell.setAttribute("class", "dead7");
+            } else if (cell.innerText == 8) {
+              cell.setAttribute("class", "dead8");
+            }
           }
         }
       }
@@ -407,34 +429,68 @@ td.live {
 }
 
 td.live1 {
-  background-color: #eeee00;
+  background-color: #FF000011;
 }
 
 td.live2 {
-  background-color: #cccc22;
+  background-color: #FF000033;
 }
 
 td.live3 {
-  background-color: #aaaa44;
+  background-color: #FF000055;
 }
 
 td.live4 {
-  background-color: #888866;
+  background-color: #FF000077;
 }
 
 td.live5 {
-  background-color: #666688;
+  background-color: #FF000099;
 }
 
 td.live6 {
-  background-color: #4444aa;
+  background-color: #FF0000BB;
 }
 
 td.live7 {
-  background-color: #2222cc;
+  background-color: #FF0000DD;
 }
 
 td.live8 {
-  background-color: #0000ee;
+  background-color: #FF0000FF;
+}
+
+
+
+td.dead1 {
+  background-color: #0099FF11;
+}
+
+td.dead2 {
+  background-color: #0099FF33;
+}
+
+td.dead3 {
+  background-color: #0099FF55;
+}
+
+td.dead4 {
+  background-color: #0099FF77;
+}
+
+td.dead5 {
+  background-color: #0099FF99;
+}
+
+td.dead6 {
+  background-color: #0099FFBB;
+}
+
+td.dead7 {
+  background-color: #0099FFDD;
+}
+
+td.dead8 {
+  background-color: #0099FFFF;
 }
 </style>
