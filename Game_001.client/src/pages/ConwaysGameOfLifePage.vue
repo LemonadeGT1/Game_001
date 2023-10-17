@@ -105,37 +105,11 @@ export default {
         this.setAttribute("class", "dead");
         grid[row][col] = 0;
       }
-
-      // else if (classes.indexOf("live1") > -1) {
-      //   this.setAttribute("class", "live1");
-      //   grid[row][col] = 1;
-      // } else if (classes.indexOf("live2") > -1) {
-      //   this.setAttribute("class", "live2");
-      //   grid[row][col] = 2;
-      // } else if (classes.indexOf("live3") > -1) {
-      //   this.setAttribute("class", "live3");
-      //   grid[row][col] = 3;
-      // } else if (classes.indexOf("live4") > -1) {
-      //   this.setAttribute("class", "live4");
-      //   grid[row][col] = 4;
-      // } else if (classes.indexOf("live5") > -1) {
-      //   this.setAttribute("class", "live5");
-      //   grid[row][col] = 5;
-      // } else if (classes.indexOf("live6") > -1) {
-      //   this.setAttribute("class", "live6");
-      //   grid[row][col] = 6;
-      // } else if (classes.indexOf("live7") > -1) {
-      //   this.setAttribute("class", "live7");
-      //   grid[row][col] = 7;
-      // } else if (classes.indexOf("live8") > -1) {
-      //   this.setAttribute("class", "live8");
-      //   grid[row][col] = 8;
-      // } 
-
       else {
         this.setAttribute("class", "live");
         grid[row][col] = 1;
       }
+      console.log(`cellClickHandler grid[${row}][${col}]`, grid[row][col], classes)
       updateView();
     }
 
@@ -143,29 +117,8 @@ export default {
       for (let i = 0; i < gridRows; i++) {
         for (let j = 0; j < gridCols; j++) {
           let cell = document.getElementById(i + "_" + j);
-          // if (grid[i][j] == 0) {
-          //   cell.setAttribute("class", "dead");
-          // } else if (grid[i][j] == 1) {
-          //   cell.setAttribute("class", "live1");
-          // } else if (grid[i][j] == 2) {
-          //   cell.setAttribute("class", "live2");
-          // } else if (grid[i][j] == 3) {
-          //   cell.setAttribute("class", "live3");
-          // } else if (grid[i][j] == 4) {
-          //   cell.setAttribute("class", "live4");
-          // } else if (grid[i][j] == 5) {
-          //   cell.setAttribute("class", "live5");
-          // } else if (grid[i][j] == 6) {
-          //   cell.setAttribute("class", "live6");
-          // } else if (grid[i][j] == 7) {
-          //   cell.setAttribute("class", "live7");
-          // } else if (grid[i][j] == 8) {
-          //   cell.setAttribute("class", "live8");
-          // }
           if (grid[i][j] == 1) {
-            if (cell.innerText == 0) {
-              cell.setAttribute("class", "dead");
-            } else if (cell.innerText == 1) {
+            if (cell.innerText == 1) {
               cell.setAttribute("class", "live1");
             } else if (cell.innerText == 2) {
               cell.setAttribute("class", "live2");
