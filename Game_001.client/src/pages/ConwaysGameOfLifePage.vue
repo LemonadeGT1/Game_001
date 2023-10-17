@@ -382,42 +382,42 @@ td.live {
 }
 
 td.live1 {
-  background-color: #FF000011;
+  background-color: #FF0000FF;
   border-radius: 20px;
 }
 
 td.live2 {
-  background-color: #FF000033;
+  background-color: #FF0000CC;
   border-radius: 20px;
 }
 
 td.live3 {
-  background-color: #FF000055;
-  border-radius: 20px;
-}
-
-td.live4 {
-  background-color: #FF000077;
-  border-radius: 20px;
-}
-
-td.live5 {
   background-color: #FF000099;
   border-radius: 20px;
 }
 
+td.live4 {
+  background-color: #FF000066;
+  border-radius: 20px;
+}
+
+td.live5 {
+  background-color: #FF000033;
+  border-radius: 20px;
+}
+
 td.live6 {
-  background-color: #FF0000BB;
+  background-color: #FF000000;
   border-radius: 20px;
 }
 
 td.live7 {
-  background-color: #FF0000DD;
+  background-color: #FF003333;
   border-radius: 20px;
 }
 
 td.live8 {
-  background-color: #FF0000FF;
+  background-color: #FF006666;
   border-radius: 20px;
 }
 
