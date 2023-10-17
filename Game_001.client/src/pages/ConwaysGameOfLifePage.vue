@@ -109,7 +109,7 @@ export default {
         this.setAttribute("class", "live");
         grid[row][col] = 1;
       }
-      console.log(`cellClickHandler grid[${row}][${col}]`, grid[row][col], classes)
+      // console.log(`cellClickHandler grid[${row}][${col}]`, grid[row][col], classes)
       updateView();
     }
 
