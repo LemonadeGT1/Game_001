@@ -86,6 +86,13 @@ export default {
           let cell = document.createElement("td");
           cell.setAttribute("id", i + "_" + j);
           cell.setAttribute("class", "dead");
+          // SECTION - this is so we can mark the center lines
+          if (i == j) {
+            cell.setAttribute("class", "marker")
+          }
+          if (i + j == gridRows - 1) {
+            cell.setAttribute("class", "marker")
+          }
           cell.onclick = cellClickHandler;
           tr.appendChild(cell);
           cell.innerText = 0;
@@ -453,5 +460,9 @@ td.dead7 {
 
 td.dead8 {
   background-color: #0099FFFF;
+}
+
+.marker {
+  background-color: #aaaaaa;
 }
 </style>
