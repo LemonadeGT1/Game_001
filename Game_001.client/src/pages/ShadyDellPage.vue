@@ -37,6 +37,14 @@ export default {
     const mapX = 40
     const mapY = 40
 
+    const mapAll = []
+    // Init mapAll
+    for (let i = 0; i < mapX; i++) {
+      for (let j = 0; j < mapY; j++) {
+        mapAll[i][j] = 0
+      }
+    }
+
     function randomType(min, max) {
       return Math.floor(Math.random() * 8) + min
     }
@@ -61,15 +69,17 @@ export default {
         }
         gridContainerElem.appendChild(mapRow)
       }
-      // SET Random values
+      // SECTION - Random values
       for (let i = 0; i < mapX; i++) {
         for (let j = 0; j < mapY; j++) {
           let mapCellElem = document.getElementById(i + "_" + j)
           let setType = randomType(1, 8)
           mapCellElem.innerText = setType
           mapCellElem.classList.add("type" + setType)
+          mapAll[i][j] = setType
         }
       }
+      console.log(mapAll)
     }
 
     onMounted(() => { setUpGrid() });
