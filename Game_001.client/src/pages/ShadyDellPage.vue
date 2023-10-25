@@ -158,55 +158,56 @@ export default {
 }
 
 .mapCell {
-  border-right: 1px solid #999999;
-  border-bottom: 1px solid #999999;
+  /* border-right: 1px solid #999999;
+  border-bottom: 1px solid #999999; */
+  cursor: default;
   height: 15px;
   width: 15px;
   float: left;
   font-size: .65em;
 }
 
-.mapCell:first-child {
+/* .mapCell:first-child {
   border-left: 1px solid #999999;
-}
+} */
 
 .mapCell:hover {
   background-color: #99999999;
 }
 
-#row_0>.mapCell {
+/* #row_0>.mapCell {
   border-top: 1px solid #999999;
-}
+} */
 
 .type1 {
-  background-color: #003300;
+  background-color: #5aa528;
 }
 
 .type2 {
-  background-color: #006600;
+  background-color: #91b93c;
 }
 
 .type3 {
-  background-color: #009900;
+  background-color: #afc850;
 }
 
 .type4 {
-  background-color: #999933;
+  background-color: #ffd787;
 }
 
 .type5 {
-  background-color: #cc9966;
+  background-color: #f5aa5a;
 }
 
 .type6 {
-  background-color: #cccc99;
+  background-color: #af7846;
 }
 
 .type7 {
-  background-color: #cccccc;
+  background-color: #7d5528;
 }
 
 .type8 {
-  background-color: #ffffff;
+  background-color: #6e4619;
 }
 </style>
