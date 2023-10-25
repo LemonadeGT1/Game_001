@@ -37,9 +37,10 @@ export default {
     const mapX = 40
     const mapY = 40
 
-    const mapAll = []
+    const mapAll = new Array(mapX)
     // Init mapAll
     for (let i = 0; i < mapX; i++) {
+      mapAll[i] = new Array(mapY)
       for (let j = 0; j < mapY; j++) {
         mapAll[i][j] = 0
       }
