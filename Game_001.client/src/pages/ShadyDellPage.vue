@@ -37,6 +37,10 @@ export default {
     const mapX = 40
     const mapY = 40
 
+    function randomType(min, max) {
+      return Math.floor(Math.random() * 8) + min
+    }
+
     function setUpGrid() {
       const gridContainerElem = document.getElementById('gridContainer')
       if (!gridContainerElem) {
@@ -44,8 +48,6 @@ export default {
       } else {
         console.log("gridContainer found!")
       }
-
-      const theMap = document.createElement('theMap')
 
       for (let i = 0; i < mapX; i++) {
         let mapRow = document.createElement("div");
@@ -58,6 +60,15 @@ export default {
           mapRow.appendChild(mapCell)
         }
         gridContainerElem.appendChild(mapRow)
+      }
+      // SET Random values
+      for (let i = 0; i < mapX; i++) {
+        for (let j = 0; j < mapY; j++) {
+          let mapCellElem = document.getElementById(i + "_" + j)
+          let setType = randomType(1, 8)
+          mapCellElem.innerText = setType
+          mapCellElem.classList.add("type" + setType)
+        }
       }
     }
 
@@ -152,6 +163,7 @@ export default {
   height: 15px;
   width: 15px;
   float: left;
+  font-size: .65em;
 }
 
 .mapCell:first-child {
@@ -164,5 +176,37 @@ export default {
 
 #row_0>.mapCell {
   border-top: 1px solid #999999;
+}
+
+.type1 {
+  background-color: #003300;
+}
+
+.type2 {
+  background-color: #006600;
+}
+
+.type3 {
+  background-color: #009900;
+}
+
+.type4 {
+  background-color: #999933;
+}
+
+.type5 {
+  background-color: #cc9966;
+}
+
+.type6 {
+  background-color: #cccc99;
+}
+
+.type7 {
+  background-color: #cccccc;
+}
+
+.type8 {
+  background-color: #ffffff;
 }
 </style>
