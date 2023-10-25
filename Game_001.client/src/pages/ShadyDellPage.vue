@@ -8,8 +8,11 @@
           <button v-else-if="sdGameStats.gameState == 'Paused'" class="btn btn-dark disabled">Paused</button>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-12 text-center"><img src="../assets/img/Tree1.svg" class="tree" @click="treeClick()"></div>
+      </div> -->
+      <div class="row">
+        <div class="col-12" id="gridContainer"></div>
       </div>
     </div>
   </div>
@@ -24,12 +27,41 @@
 
 <script>
 import { AppState } from "../AppState.js";
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 
 export default {
   setup() {
-    AppState.sdGameStats.FrameRate = 250
+    AppState.sdGameStats.FrameRate = 1000
     AppState.sdGameStats.gameState = "Start"
+
+    const mapX = 40
+    const mapY = 40
+
+    function setUpGrid() {
+      const gridContainerElem = document.getElementById('gridContainer')
+      if (!gridContainerElem) {
+        console.log("Uh Oh! No grid container!")
+      } else {
+        console.log("gridContainer found!")
+      }
+
+      const theMap = document.createElement('theMap')
+
+      for (let i = 0; i < mapX; i++) {
+        let mapRow = document.createElement("div");
+        mapRow.setAttribute("class", "mapRow")
+        mapRow.setAttribute("id", "row_" + i)
+        for (let j = 0; j < mapY; j++) {
+          let mapCell = document.createElement("div")
+          mapCell.setAttribute("id", i + "_" + j)
+          mapCell.setAttribute("class", "mapCell")
+          mapRow.appendChild(mapCell)
+        }
+        gridContainerElem.appendChild(mapRow)
+      }
+    }
+
+    onMounted(() => { setUpGrid() });
 
     return {
       sdGameStats: computed(() => AppState.sdGameStats),
@@ -101,5 +133,36 @@ export default {
 .groundBG {
   background-color: var(--bs-dark);
   color: var(--bs-light)
+}
+
+#gridContainer {
+  margin-bottom: 10px;
+  text-align: center;
+  align-items: center;
+}
+
+.mapRow {
+  align-items: start;
+  clear: both;
+}
+
+.mapCell {
+  border-right: 1px solid #999999;
+  border-bottom: 1px solid #999999;
+  height: 15px;
+  width: 15px;
+  float: left;
+}
+
+.mapCell:first-child {
+  border-left: 1px solid #999999;
+}
+
+.mapCell:hover {
+  background-color: #99999999;
+}
+
+#row_0>.mapCell {
+  border-top: 1px solid #999999;
 }
 </style>
