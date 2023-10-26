@@ -219,7 +219,7 @@ export default {
       for (let i = 0; i < cells.length; i++) {
         cells[i].setAttribute("class", "dead");
       }
-      resetGrids;
+      resetGrids();
     }
 
     // start/pause/continue the game
