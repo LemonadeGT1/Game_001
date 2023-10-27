@@ -49,8 +49,18 @@ export default {
       }
     }
 
-    function randomType(min, max) {
-      return Math.floor(Math.random() * max) + min
+    function randomType() {
+      const randomNumber = Math.floor(Math.random() * 100) + 1
+      if (randomNumber < 26) { return 1 }
+      else if (randomNumber < 46) { return 2 }
+      else if (randomNumber < 61) { return 3 }
+      else if (randomNumber < 72) { return 4 }
+      else if (randomNumber < 81) { return 5 }
+      else if (randomNumber < 88) { return 6 }
+      else if (randomNumber < 94) { return 7 }
+      else { return 8 }
+
+      // return Math.floor(Math.random() * max - min + 1) + min
     }
 
     function setUpGrid() {
@@ -78,7 +88,7 @@ export default {
       // SECTION - Assign random values and classes
       for (let i = 0; i < mapX; i++) {
         for (let j = 0; j < mapY; j++) {
-          mapAll[i][j] = randomType(1, 8)
+          mapAll[i][j] = randomType()
         }
       }
 
