@@ -34,8 +34,8 @@ export default {
     AppState.sdGameStats.FrameRate = 1000
     AppState.sdGameStats.gameState = "Start"
 
-    const mapX = 20
-    const mapY = 20
+    const mapX = 40
+    const mapY = 40
 
     // Initialize mapAll and newMapAll
     const mapAll = new Array(mapX)
@@ -82,7 +82,8 @@ export default {
         }
       }
 
-      // SECTION - Iterate over the map with cellular automata to smooth out transitions
+      // SECTION - Iterate over the map to smooth out transitions
+      // FIXME - Do this for valleys too
       for (let i = 0; i < mapX; i++) {
         for (let j = 0; j < mapY; j++) {
           if (mapAll[i][j] == 8) {
@@ -91,6 +92,15 @@ export default {
                 if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
                   newMapAll[i + k][j + l] = 7;
                   newMapAll[i][j] = 8;
+                }
+              }
+            }
+          } else if (mapAll[i][j] == 1) {
+            for (let k = -1; k <= 1; k++) {
+              for (let l = -1; l <= 1; l++) {
+                if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
+                  newMapAll[i + k][j + l] = 2;
+                  newMapAll[i][j] = 1;
                 }
               }
             }
@@ -204,8 +214,8 @@ export default {
   /* border-right: 1px solid #999999;
   border-bottom: 1px solid #999999; */
   cursor: default;
-  height: 20px;
-  width: 20px;
+  height: 12px;
+  width: 12px;
   float: left;
   font-size: .65em;
 }
@@ -230,7 +240,7 @@ export default {
 
 .type2 {
   background-color: #91b93c;
-  color: #91b93c
+  color: #91b93c;
 }
 
 .type3 {
