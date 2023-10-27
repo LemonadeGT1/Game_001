@@ -34,8 +34,8 @@ export default {
     AppState.sdGameStats.FrameRate = 1000
     AppState.sdGameStats.gameState = "Start"
 
-    const mapX = 8
-    const mapY = 8
+    const mapX = 20
+    const mapY = 20
 
     // Initialize mapAll and newMapAll
     const mapAll = new Array(mapX)
@@ -78,11 +78,7 @@ export default {
       // SECTION - Assign random values and classes
       for (let i = 0; i < mapX; i++) {
         for (let j = 0; j < mapY; j++) {
-          let mapCellElem = document.getElementById(i + "_" + j)
-          let setType = randomType(1, 8)
-          // mapCellElem.innerText = setType
-          mapCellElem.classList.add("type" + setType)
-          mapAll[i][j] = setType
+          mapAll[i][j] = randomType(1, 8)
         }
       }
 
@@ -101,11 +97,22 @@ export default {
           } else { newMapAll[i][j] = mapAll[i][j] }
         }
       }
-      console.log('mapAll', mapAll)
-      console.log('newMapAll', newMapAll)
 
-      // SECTION - Replace mapAll with newMapAll and reset newMapAll
-      // FIXME - Fill this in
+      // console.log('mapAll', mapAll)
+      // console.log('newMapAll', newMapAll)
+
+      // SECTION - Copy newMapAll into mapAll and set the CSS
+      for (let i = 0; i < mapX; i++) {
+        for (let j = 0; j < mapY; j++) {
+          mapAll[i][j] = newMapAll[i][j]
+          newMapAll[i][j] = 0
+          let setType = mapAll[i][j]
+
+          let mapCellElem = document.getElementById(i + "_" + j)
+          mapCellElem.innerText = setType
+          mapCellElem.classList.add("type" + setType)
+        }
+      }
 
     };
     onMounted(() => { setUpGrid() });
@@ -209,6 +216,7 @@ export default {
 
 .mapCell:hover {
   background-color: #99999999;
+  color: black;
 }
 
 /* #row_0>.mapCell {
@@ -217,33 +225,41 @@ export default {
 
 .type1 {
   background-color: #5aa528;
+  color: #5aa528;
 }
 
 .type2 {
   background-color: #91b93c;
+  color: #91b93c
 }
 
 .type3 {
   background-color: #afc850;
+  color: #afc850;
 }
 
 .type4 {
   background-color: #ffd787;
+  color: #ffd787;
 }
 
 .type5 {
   background-color: #f5aa5a;
+  color: #f5aa5a;
 }
 
 .type6 {
   background-color: #af7846;
+  color: #af7846;
 }
 
 .type7 {
   background-color: #7d5528;
+  color: #7d5528;
 }
 
 .type8 {
   background-color: #6e4619;
+  color: #6e4619;
 }
 </style>
