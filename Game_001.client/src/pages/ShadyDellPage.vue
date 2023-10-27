@@ -34,8 +34,8 @@ export default {
     AppState.sdGameStats.FrameRate = 1000
     AppState.sdGameStats.gameState = "Start"
 
-    const mapX = 40
-    const mapY = 40
+    const mapX = 42
+    const mapY = 42
 
     // Initialize mapAll and newMapAll
     const mapAll = new Array(mapX)
@@ -93,28 +93,40 @@ export default {
       }
 
       // SECTION - Iterate over the map to smooth out transitions
-      // FIXME - Do this for valleys too
+      // This replaces the cell value with the average of the 8 surrounding cells, plus the cell itself
       for (let i = 0; i < mapX; i++) {
         for (let j = 0; j < mapY; j++) {
-          if (mapAll[i][j] == 8) {
-            for (let k = -1; k <= 1; k++) {
-              for (let l = -1; l <= 1; l++) {
-                if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
-                  newMapAll[i + k][j + l] = 7;
-                  newMapAll[i][j] = 8;
-                }
+          let locationTotal = 0
+          for (let a = -1; a <= 1; a++) {
+            for (let b = -1; b <= 1; b++) {
+              if (i + a >= 0 && j + b >= 0 && i + a < mapX && j + b < mapY) {
+                locationTotal += mapAll[i + a][j + b]
               }
             }
-          } else if (mapAll[i][j] == 1) {
-            for (let k = -1; k <= 1; k++) {
-              for (let l = -1; l <= 1; l++) {
-                if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
-                  newMapAll[i + k][j + l] = 2;
-                  newMapAll[i][j] = 1;
-                }
-              }
-            }
-          } else { newMapAll[i][j] = mapAll[i][j] }
+          }
+          let locationAverage = Math.ceil(locationTotal / 9)
+          newMapAll[i][j] = locationAverage
+
+          // NOTE - This works but I want to make it smoother still.
+          // if (mapAll[i][j] == 8) {
+          //   for (let k = -1; k <= 1; k++) {
+          //     for (let l = -1; l <= 1; l++) {
+          //       if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
+          //         newMapAll[i + k][j + l] = 7;
+          //         newMapAll[i][j] = 8; // Don't overwrite the peak itself
+          //       }
+          //     }
+          //   }
+          // } else if (mapAll[i][j] == 1) {
+          //   for (let k = -1; k <= 1; k++) {
+          //     for (let l = -1; l <= 1; l++) {
+          //       if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
+          //         newMapAll[i + k][j + l] = Math.floor(Math.random() * 2 + 1);
+          //         newMapAll[i][j] = 1;
+          //       }
+          //     }
+          //   }
+          // } else { newMapAll[i][j] = mapAll[i][j] }
         }
       }
 
@@ -122,8 +134,8 @@ export default {
       // console.log('newMapAll', newMapAll)
 
       // SECTION - Copy newMapAll into mapAll and set the CSS
-      for (let i = 0; i < mapX; i++) {
-        for (let j = 0; j < mapY; j++) {
+      for (let i = 1; i < mapX - 1; i++) {
+        for (let j = 1; j < mapY - 1; j++) {
           mapAll[i][j] = newMapAll[i][j]
           newMapAll[i][j] = 0
           let setType = mapAll[i][j]
