@@ -34,8 +34,8 @@ export default {
     AppState.sdGameStats.FrameRate = 1000
     AppState.sdGameStats.gameState = "Start"
 
-    const mapX = 16
-    const mapY = 16
+    const mapX = 8
+    const mapY = 8
 
     // Initialize mapAll and newMapAll
     const mapAll = new Array(mapX)
@@ -61,6 +61,7 @@ export default {
         console.log("gridContainer found!")
       }
 
+      // SECTION - Sets up an empty grid
       for (let i = 0; i < mapX; i++) {
         let mapRow = document.createElement("div");
         mapRow.setAttribute("class", "mapRow")
@@ -74,7 +75,7 @@ export default {
         gridContainerElem.appendChild(mapRow)
       }
 
-      // SECTION - Assign random values
+      // SECTION - Assign random values and classes
       for (let i = 0; i < mapX; i++) {
         for (let j = 0; j < mapY; j++) {
           let mapCellElem = document.getElementById(i + "_" + j)
@@ -88,20 +89,24 @@ export default {
       // SECTION - Iterate over the map with cellular automata to smooth out transitions
       for (let i = 0; i < mapX; i++) {
         for (let j = 0; j < mapY; j++) {
-          for (var k = -1; k <= 1; k++) {
-            for (var l = -1; l <= 1; l++) {
-              if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
-                if (mapAll[i][j] == 8) {
+          if (mapAll[i][j] == 8) {
+            for (let k = -1; k <= 1; k++) {
+              for (let l = -1; l <= 1; l++) {
+                if (i + k >= 0 && i + k < mapY && j + l >= 0 && j + l < mapX) {
                   newMapAll[i + k][j + l] = 7;
                   newMapAll[i][j] = 8;
                 }
-              } else { newMapAll[i][j] = mapAll[i][j] }
+              }
             }
-          }
+          } else { newMapAll[i][j] = mapAll[i][j] }
         }
-        console.log('mapAll', mapAll)
-        console.log('newMapAll', newMapAll)
       }
+      console.log('mapAll', mapAll)
+      console.log('newMapAll', newMapAll)
+
+      // SECTION - Replace mapAll with newMapAll and reset newMapAll
+      // FIXME - Fill this in
+
     };
     onMounted(() => { setUpGrid() });
 
