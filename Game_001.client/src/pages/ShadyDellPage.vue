@@ -51,16 +51,17 @@ export default {
 
     function randomType() {
       const randomNumber = Math.floor(Math.random() * 100) + 1
-      // FIXME - after smoothing, 1's and 8's no longer appear, and 7 are very rare
-      // because there is only a 6% chance to roll an 8, then it's averaged down anyway
-      if (randomNumber < 26) { return 1 }
-      else if (randomNumber < 46) { return 2 }
-      else if (randomNumber < 61) { return 3 }
-      else if (randomNumber < 72) { return 4 }
-      else if (randomNumber < 81) { return 5 }
-      else if (randomNumber < 88) { return 6 }
-      else if (randomNumber < 94) { return 7 }
-      else { return 8 }
+
+      if (randomNumber < 15) { return 0 }
+      else if (randomNumber < 31) { return 1 }
+      else if (randomNumber < 44) { return 2 }
+      else if (randomNumber < 52) { return 3 }
+      else if (randomNumber < 60) { return 4 }
+      else if (randomNumber < 67) { return 5 }
+      else if (randomNumber < 76) { return 6 }
+      else if (randomNumber < 86) { return 7 }
+      else if (randomNumber < 93) { return 8 }
+      else { return 9 }
 
       // return Math.floor(Math.random() * max - min + 1) + min
     }
@@ -107,13 +108,7 @@ export default {
             }
           }
           let locationAverage = (locationTotal / 9)
-          if (locationAverage > 5.4) {
-            newMapAll[i][j] = 7
-          } else if (locationAverage > 6.0) {
-            newMapAll[i][j] = 8
-          } else {
-            newMapAll[i][j] = Math.ceil(locationAverage)
-          }
+          newMapAll[i][j] = Math.ceil(locationAverage)
 
           // NOTE - This works but I want to make it smoother still.
           // if (mapAll[i][j] == 8) {
@@ -264,8 +259,9 @@ export default {
 } */
 
 .type1 {
-  background-color: #5aa528;
-  color: #5aa528;
+  background-color: #4d7fd6;
+  /*#5aa528;*/
+  color: #4d7fd6;
 }
 
 .type2 {
@@ -299,7 +295,13 @@ export default {
 }
 
 .type8 {
-  background-color: #6e4619;
-  color: #6e4619;
+  background-color: #e8e8f4;
+  /*#6e4619;*/
+  color: #e8e8f4;
+}
+
+.type9 {
+  background-color: #000000;
+  color: #000000;
 }
 </style>
