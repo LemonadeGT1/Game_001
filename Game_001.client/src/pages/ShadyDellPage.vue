@@ -51,6 +51,8 @@ export default {
 
     function randomType() {
       const randomNumber = Math.floor(Math.random() * 100) + 1
+      // FIXME - after smoothing, 1's and 8's no longer appear, and 7 are very rare
+      // because there is only a 6% chance to roll an 8, then it's averaged down anyway
       if (randomNumber < 26) { return 1 }
       else if (randomNumber < 46) { return 2 }
       else if (randomNumber < 61) { return 3 }
@@ -104,8 +106,14 @@ export default {
               }
             }
           }
-          let locationAverage = Math.ceil(locationTotal / 9)
-          newMapAll[i][j] = locationAverage
+          let locationAverage = (locationTotal / 9)
+          if (locationAverage > 5.4) {
+            newMapAll[i][j] = 7
+          } else if (locationAverage > 6.0) {
+            newMapAll[i][j] = 8
+          } else {
+            newMapAll[i][j] = Math.ceil(locationAverage)
+          }
 
           // NOTE - This works but I want to make it smoother still.
           // if (mapAll[i][j] == 8) {
