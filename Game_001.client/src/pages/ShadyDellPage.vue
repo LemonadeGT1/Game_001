@@ -55,7 +55,7 @@ export default {
       if (randomNumber < 15) { return 0 }
       else if (randomNumber < 31) { return 1 }
       else if (randomNumber < 44) { return 2 }
-      else if (randomNumber < 52) { return 3 }
+      else if (randomNumber < 53) { return 3 }
       else if (randomNumber < 60) { return 4 }
       else if (randomNumber < 67) { return 5 }
       else if (randomNumber < 76) { return 6 }
