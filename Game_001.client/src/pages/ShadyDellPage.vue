@@ -34,8 +34,8 @@ export default {
     AppState.sdGameStats.FrameRate = 1000
     AppState.sdGameStats.gameState = "Start"
 
-    const mapX = 66
-    const mapY = 66
+    const mapX = 34
+    const mapY = 34
 
     // Initialize mapAll and newMapAll
     const mapAll = new Array(mapX)
